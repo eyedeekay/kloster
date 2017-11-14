@@ -48,7 +48,7 @@ build:
 	docker build --rm -f Dockerfile -t alpine-xen-iso .
 
 run:
-	docker rmi -f alpine-xen-iso; \
+	docker rm -f alpine-xen-iso; \
 	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-xen-iso -t alpine-xen-iso
 
 copy:
