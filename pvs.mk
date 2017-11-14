@@ -53,7 +53,6 @@ docker-registry-pv:
 		--profile registry
 
 pv-darkhttpd-config:
-	pv-docker-registry-config:
 	@echo "#! /bin/sh" | tee
 	@echo "#export PROFILENAME=docker"
 	@echo "profile_registry(){"
