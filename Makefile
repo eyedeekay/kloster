@@ -60,14 +60,16 @@ sum:
 	sha256sum "alpine-kloster-edge-x86_64.iso" > \
 		"alpine-kloster-edge-x86_64.iso.sha256sum" || \
 		rm alpine-kloster-edge-x86_64.iso.sha256sum; \
-	@echo sums computed
+	echo sums computed
 
 sig:
+	cd ./iso; \
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
 		"alpine-kloster-edge-x86_64.iso.sha256sum" ; \
-	@echo images signed
+	echo images signed
 
 torrent:
+	cd ./iso; \
 	mktorrent -a "udp://tracker.openbittorrent.com:80" \
 		-a "udp://tracker.publicbt.com:80" \
 		-a "udp://tracker.istole.it:80" \
@@ -81,17 +83,25 @@ torrent:
 		-a "http://bttrack.9you.com/announce" \
 		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-kloster-edge-x86_64.iso \
 		"alpine-kloster-edge-x86_64.iso"; \
-	@echo torrents created
+	echo torrents created
+
+delrelease:
+	github-release delete \
+		--user eyedeekay \
+		--repo kloster \
+		--tag $(release); true
 
 release:
+	cd ./iso; \
 	$(GITHUB_RELEASE_PATH) release \
 		--user eyedeekay \
-		--repo closter \
+		--repo kloster \
 		--tag $(release) \
 		--name "kloster" \
 		--description "xen distro for self hosting"
 
 upload:
+	cd ./iso; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-kloster-edge-x86_64.iso.sha256sum" \
 		--file "alpine-kloster-edge-x86_64.iso.sha256sum"; \
@@ -107,3 +117,11 @@ upload:
 
 docker-build: build run
 
+docker-release:
+	make docker-build; sleep 10m; make copy
+	make delrelease
+	make sum
+	make sig
+	make torrent
+	make release
+	make upload

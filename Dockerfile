@@ -18,4 +18,5 @@ CMD sh mkimage.sh --tag edge \
 	--arch x86_64 \
 	--repository       http://dl-cdn.alpinelinux.org/alpine/edge/main \
         --extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+        --extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
 	--profile kloster
