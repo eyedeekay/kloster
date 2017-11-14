@@ -3,6 +3,8 @@ export GITHUB_RELEASE_PATH = "$(HOME)/.go/bin/github-release"
 
 export PROFILENAME=kloster
 
+export SIGNING_KEY=70D2060738BEF80523ACAFF7D75C03B39B5E14E1
+
 define ALPINE_BASE_PACKAGES
 \"\$$apks iscsi-scst zfs-scripts zfs zfs-utils-py \
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
