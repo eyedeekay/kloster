@@ -14,7 +14,7 @@ define ALPINE_BASE_PACKAGES
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
 parted rsync sfdisk syslinux unrar util-linux xfsprogs \
 dosfstools ntfs-3g ethtool multipath-tools linux-firmware \
-openvswitch sway mutt nano\"
+openvswitch sway mutt nano htop tshark bash coreutils\"
 endef
 
 define ALPINE_XEN_PACKAGES
@@ -67,8 +67,8 @@ searchd:
 install-search:
 	@echo "#! /usr/bin/env sh" | tee $(LOCAL_PATH)/apk-search
 	@echo "SEARCHTERM=\"\$$1\"" | tee -a $(LOCAL_PATH)/apk-search
-	@echo "docker run -d --restart always --name alpine-apk-search -t alpine-xen-iso sh 1>/dev/null 2>/dev/null; \\ " | tee -a $(LOCAL_PATH)/apk-search
-	@echo "docker exec -i -t alpine-apk-search apk search \$$SEARCHTERM; \\ " | tee -a $(LOCAL_PATH)/apk-search
+	@echo "docker run -d --restart always --name alpine-apk-search -t alpine-xen-iso sh 1>/dev/null 2>/dev/null" | tee -a $(LOCAL_PATH)/apk-search
+	@echo "docker exec -i -t alpine-apk-search apk search \$$SEARCHTERM" | tee -a $(LOCAL_PATH)/apk-search
 	@echo "docker rm -f alpine-apk-search 1>/dev/null 2>/dev/null" | tee -a $(LOCAL_PATH)/apk-search
 	chmod +x $(LOCAL_PATH)/apk-search
 
