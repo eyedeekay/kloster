@@ -5,6 +5,10 @@ export PROFILENAME=kloster
 
 export SIGNING_KEY=70D2060738BEF80523ACAFF7D75C03B39B5E14E1
 
+export SEARCHTERM ?= xen
+
+export LOCAL_PATH ?= /usr/local/bin/
+
 define ALPINE_BASE_PACKAGES
 \"\$$apks iscsi-scst zfs-scripts zfs zfs-utils-py \
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
@@ -50,6 +54,24 @@ build:
 run:
 	docker rm -f alpine-xen-iso; \
 	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-xen-iso -t alpine-xen-iso
+
+searchm:
+	docker run -d --restart always --name alpine-apk-search -t alpine-xen-iso sh
+
+search:
+	docker exec -i -t alpine-apk-search apk search $(SEARCHTERM)
+
+searchd:
+	docker rm -f alpine-apk-search
+
+install-search:
+	@echo "#! /usr/bin/env sh" | tee $(LOCAL_PATH)/apk-search
+	@echo "SEARCHTERM=\"\$$1\"" | tee -a $(LOCAL_PATH)/apk-search
+	@echo "docker run -d --restart always --name alpine-apk-search -t alpine-xen-iso sh 1>/dev/null 2>/dev/null; \\ " | tee -a $(LOCAL_PATH)/apk-search
+	@echo "docker exec -i -t alpine-apk-search apk search \$$SEARCHTERM; \\ " | tee -a $(LOCAL_PATH)/apk-search
+	@echo "docker rm -f alpine-apk-search 1>/dev/null 2>/dev/null" | tee -a $(LOCAL_PATH)/apk-search
+	chmod +x $(LOCAL_PATH)/apk-search
+
 
 copy:
 	rm -rf ./iso
@@ -117,11 +139,16 @@ upload:
 
 docker-build: build run
 
-docker-release:
-	make docker-build; sleep 10m; make copy
+rerelease:
 	make delrelease
 	make sum
 	make sig
 	make torrent
 	make release
 	make upload
+
+docker-release:
+	make docker-build; sleep 10m; make copy
+	make rerelease
+
+
