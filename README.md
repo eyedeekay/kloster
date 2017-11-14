@@ -20,6 +20,7 @@ Planned Default DomU's
   * Whonix
   * Network VM
   * USB VM
+  * Debian-minbase
 
 References
 ----------

@@ -14,14 +14,28 @@ define ALPINE_BASE_PACKAGES
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
 parted rsync sfdisk syslinux unrar util-linux xfsprogs \
 dosfstools ntfs-3g ethtool multipath-tools linux-firmware \
-openvswitch sway mutt nano htop wireless-tools\"
+openvswitch\"
+endef
+
+define ALPINE_SWAY_PACKAGES
+sway mutt nano htop wireless-tools
 endef
 
 define ALPINE_XEN_PACKAGES
 \"\$$apks xen\"
 endef
 
+define ALPINE_DOCKER_PACKAGES
+\"\$$apks docker\"
+endef
 
+define ALPINE_DOCKER_REGISTRY_PACKAGES
+\"\$$apks docker-registry\"
+endef
+
+define ALPINE_DARKHTTPD_PACKAGES
+\"\$$apks darkhttpd\"
+endef
 
 list:
 	@echo ""
@@ -37,6 +51,7 @@ config:
 	@echo "    syslinux_serial=\"0 115200\""
 	@echo "    kernel_addons=\"zfs spl\""
 	@echo "    apks=$(ALPINE_BASE_PACKAGES)"
+	@echo "    apks=$(ALPINE_SWAY_PACKAGES)"
 	@echo "    apks=$(ALPINE_XEN_PACKAGES)"
 	@echo "    local _k _a"
 	@echo "    for _k in \$$kernel_flavors; do"
@@ -48,12 +63,24 @@ config:
 	@echo "}"
 	@echo ""
 
+include pvs.mk
+
 build:
 	docker build --rm -f Dockerfile -t alpine-xen-iso .
 
 run:
 	docker rm -f alpine-xen-iso; \
 	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-xen-iso -t alpine-xen-iso
+
+
+kloster:
+	sh mkimage.sh --tag edge \
+		--outdir ~/iso \
+		--arch x86_64 \
+		--repository       http://dl-cdn.alpinelinux.org/alpine/edge/main \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+		--profile kloster
 
 searchm:
 	docker run -d --restart always --name alpine-apk-search -t alpine-xen-iso sh
@@ -74,8 +101,11 @@ install-search:
 
 
 copy:
-	rm -rf ./iso
-	docker cp alpine-xen-iso:/home/build/iso/ ./iso
+	rm -rf ./iso && mkdir iso
+	docker cp alpine-xen-iso:/home/build/iso/* ./iso
+	docker cp alpine-docker-iso:/home/build/iso/* ./iso
+	docker cp alpine-registry-iso:/home/build/iso/* ./iso
+	docker cp alpine-darkhttpd-iso:/home/build/iso/* ./iso
 
 sum:
 	cd ./iso; \
@@ -137,9 +167,10 @@ upload:
 		--name "alpine-kloster-edge-x86_64.iso" \
 		--file "alpine-kloster-edge-x86_64.iso"; \
 
-docker-build: build run
+docker-build: build run docker-iso docker-registry-iso darkhttpd-iso
 
 rerelease:
+	make copy
 	make delrelease
 	make sum
 	make sig
