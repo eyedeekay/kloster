@@ -14,8 +14,7 @@ define ALPINE_BASE_PACKAGES
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
 parted rsync sfdisk syslinux unrar util-linux xfsprogs \
 dosfstools ntfs-3g ethtool multipath-tools linux-firmware \
-openvswitch sway mutt nano htop tshark bash coreutils \
-wireless-tools connman\"
+openvswitch sway mutt nano htop wireless-tools\"
 endef
 
 define ALPINE_XEN_PACKAGES
@@ -109,7 +108,7 @@ torrent:
 	echo torrents created
 
 delrelease:
-	github-release delete \
+	$(GITHUB_RELEASE_PATH) delete \
 		--user eyedeekay \
 		--repo kloster \
 		--tag $(release); true
