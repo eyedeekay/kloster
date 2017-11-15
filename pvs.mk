@@ -82,7 +82,7 @@ darkhttpd-pv:
 docker-iso:
 	docker rm -f alpine-docker-iso; \
 	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-docker-iso -t alpine-xen-iso make docker-pv
-		makedocker-pv
+		make docker-pv
 
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
