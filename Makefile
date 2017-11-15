@@ -112,12 +112,27 @@ sum:
 	sha256sum "alpine-kloster-edge-x86_64.iso" > \
 		"alpine-kloster-edge-x86_64.iso.sha256sum" || \
 		rm alpine-kloster-edge-x86_64.iso.sha256sum; \
+	sha256sum "alpine-docker-edge-x86_64.iso" > \
+		"alpine-docker-edge-x86_64.iso.sha256sum" || \
+		rm alpine-docker-edge-x86_64.iso.sha256sum; \
+	sha256sum "alpine-registry-edge-x86_64.iso" > \
+		"alpine-registry-edge-x86_64.iso.sha256sum" || \
+		rm alpine-registry-edge-x86_64.iso.sha256sum; \
+	sha256sum "alpine-darkhttpd-edge-x86_64.iso" > \
+		"alpine-darkhttpd-edge-x86_64.iso.sha256sum" || \
+		rm alpine-darkhttpd-edge-x86_64.iso.sha256sum; \
 	echo sums computed
 
 sig:
 	cd ./iso; \
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
 		"alpine-kloster-edge-x86_64.iso.sha256sum" ; \
+	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
+		"alpine-docker-edge-x86_64.iso.sha256sum" ; \
+	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
+		"alpine-registry-edge-x86_64.iso.sha256sum" ; \
+	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
+		"alpine-darkhttpd-edge-x86_64.iso.sha256sum" ; \
 	echo images signed
 
 torrent:
@@ -135,6 +150,45 @@ torrent:
 		-a "http://bttrack.9you.com/announce" \
 		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-kloster-edge-x86_64.iso \
 		"alpine-kloster-edge-x86_64.iso"; \
+	mktorrent -a "udp://tracker.openbittorrent.com:80" \
+		-a "udp://tracker.publicbt.com:80" \
+		-a "udp://tracker.istole.it:80" \
+		-a "udp://tracker.btzoo.eu:80/announce" \
+		-a "http://opensharing.org:2710/announce" \
+		-a "udp://open.demonii.com:1337/announce" \
+		-a "http://announce.torrentsmd.com:8080/announce.php" \
+		-a "http://announce.torrentsmd.com:6969/announce" \
+		-a "http://bt.careland.com.cn:6969/announce" \
+		-a "http://i.bandito.org/announce" \
+		-a "http://bttrack.9you.com/announce" \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-docker-edge-x86_64.iso \
+		"alpine-docker-edge-x86_64.iso"; \
+	mktorrent -a "udp://tracker.openbittorrent.com:80" \
+		-a "udp://tracker.publicbt.com:80" \
+		-a "udp://tracker.istole.it:80" \
+		-a "udp://tracker.btzoo.eu:80/announce" \
+		-a "http://opensharing.org:2710/announce" \
+		-a "udp://open.demonii.com:1337/announce" \
+		-a "http://announce.torrentsmd.com:8080/announce.php" \
+		-a "http://announce.torrentsmd.com:6969/announce" \
+		-a "http://bt.careland.com.cn:6969/announce" \
+		-a "http://i.bandito.org/announce" \
+		-a "http://bttrack.9you.com/announce" \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-registry-edge-x86_64.iso \
+		"alpine-registry-edge-x86_64.iso"; \
+	mktorrent -a "udp://tracker.openbittorrent.com:80" \
+		-a "udp://tracker.publicbt.com:80" \
+		-a "udp://tracker.istole.it:80" \
+		-a "udp://tracker.btzoo.eu:80/announce" \
+		-a "http://opensharing.org:2710/announce" \
+		-a "udp://open.demonii.com:1337/announce" \
+		-a "http://announce.torrentsmd.com:8080/announce.php" \
+		-a "http://announce.torrentsmd.com:6969/announce" \
+		-a "http://bt.careland.com.cn:6969/announce" \
+		-a "http://i.bandito.org/announce" \
+		-a "http://bttrack.9you.com/announce" \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-darkhttpd-edge-x86_64.iso \
+		"alpine-darkhttpd-edge-x86_64.iso"; \
 	echo torrents created
 
 delrelease:
@@ -166,6 +220,43 @@ upload:
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-kloster-edge-x86_64.iso" \
 		--file "alpine-kloster-edge-x86_64.iso"; \
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-docker-edge-x86_64.iso.sha256sum" \
+		--file "alpine-docker-edge-x86_64.iso.sha256sum"; \
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-docker-edge-x86_64.iso.sha256sum.asc" \
+		--file "alpine-docker-edge-x86_64.iso.sha256sum.asc";\
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-docker-edge-x86_64.iso.torrent" \
+		--file "alpine-docker-edge-x86_64.iso.torrent";\
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-docker-edge-x86_64.iso" \
+		--file "alpine-docker-edge-x86_64.iso"; \
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-registry-edge-x86_64.iso.sha256sum" \
+		--file "alpine-registry-edge-x86_64.iso.sha256sum"; \
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-registry-edge-x86_64.iso.sha256sum.asc" \
+		--file "alpine-registry-edge-x86_64.iso.sha256sum.asc";\
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-registry-edge-x86_64.iso.torrent" \
+		--file "alpine-registry-edge-x86_64.iso.torrent";\
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-registry-edge-x86_64.iso" \
+		--file "alpine-registry-edge-x86_64.iso"; \
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-darkhttpd-edge-x86_64.iso.sha256sum" \
+		--file "alpine-darkhttpd-edge-x86_64.iso.sha256sum"; \
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-darkhttpd-edge-x86_64.iso.sha256sum.asc" \
+		--file "alpine-darkhttpd-edge-x86_64.iso.sha256sum.asc";\
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-darkhttpd-edge-x86_64.iso.torrent" \
+		--file "alpine-darkhttpd-edge-x86_64.iso.torrent";\
+	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+		--name "alpine-darkhttpd-edge-x86_64.iso" \
+		--file "alpine-darkhttpd-edge-x86_64.iso"; \
+
 
 docker-build: build run docker-iso docker-registry-iso darkhttpd-iso
 
@@ -181,5 +272,3 @@ rerelease:
 docker-release:
 	make docker-build; sleep 10m; make copy
 	make rerelease
-
-

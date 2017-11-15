@@ -55,7 +55,7 @@ docker-registry-pv:
 pv-darkhttpd-config:
 	@echo "#! /bin/sh" | tee
 	@echo "#export PROFILENAME=docker"
-	@echo "profile_registry(){"
+	@echo "profile_darkhttpd(){"
 	@echo "    profile_standard"
 	@echo "    kernel_cmdline=\"\""
 	@echo "    syslinux_serial=\"0 115200\""
