@@ -9,6 +9,8 @@ export SEARCHTERM ?= xen
 
 export LOCAL_PATH ?= /usr/local/bin/
 
+export release ?=  $(shell date +%Y%W)
+
 define ALPINE_BASE_PACKAGES
 \"\$$apks iscsi-scst zfs-scripts zfs zfs-utils-py \
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
@@ -41,6 +43,9 @@ list:
 	@echo ""
 	@echo ""
 	@echo ""
+
+rinfo:
+	@echo $(release)
 
 config:
 	@echo "#! /bin/sh" | tee
@@ -259,7 +264,9 @@ upload:
 		--file "alpine-darkhttpd-edge-x86_64.iso"; \
 
 
-docker-build: build
+docker-build:
+	git pull; \
+	make build
 
 compile:
 	make run; \
