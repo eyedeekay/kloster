@@ -27,7 +27,7 @@ docker-pv:
 
 pv-docker-registry-config:
 	@echo "#! /bin/sh" | tee
-	@echo "#export PROFILENAME=docker"
+	@echo "#export PROFILENAME=registry"
 	@echo "profile_registry(){"
 	@echo "    profile_standard"
 	@echo "    kernel_cmdline=\"\""
@@ -82,11 +82,14 @@ darkhttpd-pv:
 docker-iso:
 	docker rm -f alpine-docker-iso; \
 	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-docker-iso -t alpine-xen-iso make docker-pv
+		make -f /home/build/config/Makefile -C /home/build/config docker-pv
 
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
-	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-registry-iso -t alpine-xen-iso make docker-registry-pv
+	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-registry-iso -t alpine-xen-iso make docker-registry-pv \
+		make -f /home/build/config/Makefile -C /home/build/config docker-registry-pv
 
 darkhttpd-iso:
 	docker rm -f alpine-darkhttpd-iso; \
-	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-darkhttpd-iso -t alpine-xen-iso make docker-darkhttpd-pv
+	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-darkhttpd-iso -t alpine-xen-iso \
+		make -f /home/build/config/Makefile -C /home/build/config darkhttpd-pv
