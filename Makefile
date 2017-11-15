@@ -258,7 +258,14 @@ upload:
 		--file "alpine-darkhttpd-edge-x86_64.iso"; \
 
 
-docker-build: build run docker-iso docker-registry-iso darkhttpd-iso
+docker-build: build
+
+compile:
+	make run; \
+	make docker-iso; \
+	make docker-registry-iso; \
+	make darkhttpd-iso; \
+	true
 
 rerelease:
 	make copy
