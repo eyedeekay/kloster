@@ -102,10 +102,10 @@ install-search:
 
 copy:
 	rm -rf ./iso && mkdir iso
-	docker cp alpine-xen-iso:/home/build/iso/* ./iso
-	docker cp alpine-docker-iso:/home/build/iso/* ./iso
-	docker cp alpine-registry-iso:/home/build/iso/* ./iso
-	docker cp alpine-darkhttpd-iso:/home/build/iso/* ./iso
+	docker cp alpine-xen-iso:/home/build/iso/alpine-kloster-edge-x86_64.iso ./iso
+	docker cp alpine-docker-iso:/home/build/iso/alpine-docker-edge-x86_64.iso ./iso
+	docker cp alpine-registry-iso:/home/build/iso/alpine-registry-edge-x86_64.iso ./iso
+	docker cp alpine-darkhttpd-iso:/home/build/iso/alpine-darkhttpd-edge-x86_64.iso ./iso
 
 sum:
 	cd ./iso; \
