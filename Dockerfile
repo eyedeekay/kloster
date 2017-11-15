@@ -3,10 +3,10 @@ RUN apk update
 RUN apk add alpine-sdk build-base apk-tools alpine-conf busybox fakeroot syslinux xorriso mtools dosfstools grub-efi make git sudo
 RUN adduser -h /home/build -D build -G abuild
 RUN git clone https://github.com/eyedeekay/aports /home/build/aports
-ADD . /home/build/config
+ADD . /home/build/aports/scripts
 RUN cd /home/build/aports && apk update
 RUN chmod +x /home/build/aports/scripts/*.sh && \
-        cd /home/build/config && make config | tee /home/build/aports/scripts/mkimg.kloster.sh && \
+        cd /home/build/aports/scripts && make config | tee /home/build/aports/scripts/mkimg.kloster.sh && \
         make pv-docker-config | tee /home/build/aports/scripts/mkimg.docker.sh && \
         make pv-docker-registry-config | tee /home/build/aports/scripts/mkimg.registry.sh && \
         make pv-darkhttpd-config | tee /home/build/aports/scripts/mkimg.darkhttpd.sh && \
@@ -16,4 +16,4 @@ USER build
 RUN abuild-keygen -i -a
 WORKDIR /home/build/aports/scripts/
 RUN mkdir /home/build/iso
-CMD make -C /home/build/config kloster
+CMD make kloster
