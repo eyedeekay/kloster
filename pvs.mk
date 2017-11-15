@@ -81,15 +81,26 @@ darkhttpd-pv:
 
 docker-iso:
 	docker rm -f alpine-docker-iso; \
-	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-docker-iso -t alpine-xen-iso make docker-pv
-		make docker-pv
+	docker run -d --privileged \
+		-w /home/build/aports/scripts/ \
+		--cap-add=SYS_ADMIN \
+		--name alpine-docker-iso \
+		-t alpine-xen-iso make docker-pv
 
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
-	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-registry-iso -t alpine-xen-iso make docker-registry-pv \
+	docker run -d --privileged \
+		-w /home/build/aports/scripts/ \
+		--cap-add=SYS_ADMIN \
+		--name alpine-registry-iso \
+		-t alpine-xen-iso \
 		make docker-registry-pv
 
 darkhttpd-iso:
 	docker rm -f alpine-darkhttpd-iso; \
-	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-darkhttpd-iso -t alpine-xen-iso \
+	docker run -d --privileged \
+		-w /home/build/aports/scripts/ \
+		--cap-add=SYS_ADMIN \
+		--name alpine-darkhttpd-iso \
+		-t alpine-xen-iso \
 		make darkhttpd-pv
