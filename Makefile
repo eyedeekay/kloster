@@ -24,7 +24,7 @@ sway mutt nano htop wireless-tools
 endef
 
 define ALPINE_XEN_PACKAGES
-\"\$$apks xen\"
+\"\$$apks xen xen-bridge\"
 endef
 
 define ALPINE_DOCKER_PACKAGES
@@ -43,6 +43,9 @@ list:
 	@echo ""
 	@echo ""
 	@echo ""
+
+pv:
+	@echo "$$ALPINE_PV_FILE"
 
 rinfo:
 	@echo $(release)
@@ -113,6 +116,8 @@ copy:
 	docker cp alpine-registry-iso:/home/build/iso/alpine-registry-$(branch)-x86_64.iso ./iso; \
 	docker cp alpine-darkhttpd-iso:/home/build/iso/alpine-darkhttpd-$(branch)-x86_64.iso ./iso; \
 	true
+
+
 
 sum:
 	cd ./iso; \
