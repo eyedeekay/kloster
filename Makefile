@@ -84,6 +84,7 @@ kloster:
 		--arch x86_64 \
 		--repository       http://dl-cdn.alpinelinux.org/alpine/edge/main \
 		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
 		--profile kloster
 
 searchm:
@@ -284,5 +285,5 @@ rerelease:
 	make upload
 
 docker-release:
-	make docker-build; sleep 10m; make copy
+	make docker-build; sleep 1h; make copy
 	make rerelease

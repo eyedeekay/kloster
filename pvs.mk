@@ -17,11 +17,12 @@ pv-docker-config:
 	@echo ""
 
 docker-pv:
-	sh mkimage.sh --tag v3.7 \
+	sh mkimage.sh --tag edge \
 		--outdir ~/iso \
 		--arch x86_64 \
-		--repository       http://dl-cdn.alpinelinux.org/alpine/v3.7/main \
-		--extra-repository http://dl-cdn.alpinelinux.org/alpine/v3.7/community \
+		--repository       http://dl-cdn.alpinelinux.org/alpine/edge/main \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
 		--profile docker
 
 pv-docker-registry-config:
@@ -43,11 +44,12 @@ pv-docker-registry-config:
 	@echo ""
 
 docker-registry-pv:
-	sh mkimage.sh --tag v3.7 \
+	sh mkimage.sh --tag edge \
 		--outdir ~/iso \
 		--arch x86_64 \
-		--repository       http://dl-cdn.alpinelinux.org/alpine/v3.7/main \
-		--extra-repository http://dl-cdn.alpinelinux.org/alpine/v3.7/community \
+		--repository       http://dl-cdn.alpinelinux.org/alpine/edge/main \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
 		--profile registry
 
 pv-darkhttpd-config:
@@ -69,11 +71,12 @@ pv-darkhttpd-config:
 	@echo ""
 
 darkhttpd-pv:
-	sh mkimage.sh --tag v3.7 \
+	sh mkimage.sh --tag edge \
 		--outdir ~/iso \
 		--arch x86_64 \
-		--repository       http://dl-cdn.alpinelinux.org/alpine/v3.7/main \
-		--extra-repository http://dl-cdn.alpinelinux.org/alpine/v3.7/community \
+		--repository       http://dl-cdn.alpinelinux.org/alpine/edge/main \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
 		--profile darkhttpd
 
 docker-iso:
