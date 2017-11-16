@@ -1,5 +1,5 @@
 FROM alpine:edge
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.7/community"
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" | tee -a /etc/apk/repositories
 RUN apk update
 RUN apk add alpine-sdk build-base apk-tools alpine-conf busybox fakeroot syslinux xorriso mtools dosfstools grub-efi make git sudo
 RUN adduser -h /home/build -D build -G abuild
