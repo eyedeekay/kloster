@@ -20,7 +20,7 @@ openvswitch\"
 endef
 
 define ALPINE_SWAY_PACKAGES
-sway mutt nano htop wireless-tools
+sway gdm mutt nano htop wireless-tools
 endef
 
 define ALPINE_XEN_PACKAGES
