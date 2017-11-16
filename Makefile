@@ -69,6 +69,7 @@ config:
 	@echo ""
 
 include pvs.mk
+include config.mk
 
 build:
 	docker build --rm -f Dockerfile -t alpine-xen-iso .
@@ -79,12 +80,12 @@ run:
 
 
 kloster:
-	sh mkimage.sh --tag edge \
+	sh mkimage.sh --tag $(branch) \
 		--outdir ~/iso \
 		--arch x86_64 \
-		--repository       http://dl-cdn.alpinelinux.org/alpine/edge/main \
-		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-		--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+		--repository       $(mirror)$(branch)/main \
+		--extra-repository $(mirror)$(branch)/community \
+		$(extra_repository) \
 		--profile kloster
 
 searchm:
@@ -107,38 +108,38 @@ install-search:
 
 copy:
 	rm -rf ./iso && mkdir iso
-	docker cp alpine-xen-iso:/home/build/iso/alpine-kloster-edge-x86_64.iso ./iso; \
-	docker cp alpine-docker-iso:/home/build/iso/alpine-docker-edge-x86_64.iso ./iso; \
-	docker cp alpine-registry-iso:/home/build/iso/alpine-registry-edge-x86_64.iso ./iso; \
-	docker cp alpine-darkhttpd-iso:/home/build/iso/alpine-darkhttpd-edge-x86_64.iso ./iso; \
+	docker cp alpine-xen-iso:/home/build/iso/alpine-kloster-$(branch)-x86_64.iso ./iso; \
+	docker cp alpine-docker-iso:/home/build/iso/alpine-docker-$(branch)-x86_64.iso ./iso; \
+	docker cp alpine-registry-iso:/home/build/iso/alpine-registry-$(branch)-x86_64.iso ./iso; \
+	docker cp alpine-darkhttpd-iso:/home/build/iso/alpine-darkhttpd-$(branch)-x86_64.iso ./iso; \
 	true
 
 sum:
 	cd ./iso; \
-	sha256sum "alpine-kloster-edge-x86_64.iso" > \
-		"alpine-kloster-edge-x86_64.iso.sha256sum" || \
-		rm alpine-kloster-edge-x86_64.iso.sha256sum; \
-	sha256sum "alpine-docker-edge-x86_64.iso" > \
-		"alpine-docker-edge-x86_64.iso.sha256sum" || \
-		rm alpine-docker-edge-x86_64.iso.sha256sum; \
-	sha256sum "alpine-registry-edge-x86_64.iso" > \
-		"alpine-registry-edge-x86_64.iso.sha256sum" || \
-		rm alpine-registry-edge-x86_64.iso.sha256sum; \
-	sha256sum "alpine-darkhttpd-edge-x86_64.iso" > \
-		"alpine-darkhttpd-edge-x86_64.iso.sha256sum" || \
-		rm alpine-darkhttpd-edge-x86_64.iso.sha256sum; \
+	sha256sum "alpine-kloster-$(branch)-x86_64.iso" > \
+		"alpine-kloster-$(branch)-x86_64.iso.sha256sum" || \
+		rm alpine-kloster-$(branch)-x86_64.iso.sha256sum; \
+	sha256sum "alpine-docker-$(branch)-x86_64.iso" > \
+		"alpine-docker-$(branch)-x86_64.iso.sha256sum" || \
+		rm alpine-docker-$(branch)-x86_64.iso.sha256sum; \
+	sha256sum "alpine-registry-$(branch)-x86_64.iso" > \
+		"alpine-registry-$(branch)-x86_64.iso.sha256sum" || \
+		rm alpine-registry-$(branch)-x86_64.iso.sha256sum; \
+	sha256sum "alpine-darkhttpd-$(branch)-x86_64.iso" > \
+		"alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum" || \
+		rm alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum; \
 	echo sums computed
 
 sig:
 	cd ./iso; \
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
-		"alpine-kloster-edge-x86_64.iso.sha256sum" ; \
+		"alpine-kloster-$(branch)-x86_64.iso.sha256sum" ; \
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
-		"alpine-docker-edge-x86_64.iso.sha256sum" ; \
+		"alpine-docker-$(branch)-x86_64.iso.sha256sum" ; \
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
-		"alpine-registry-edge-x86_64.iso.sha256sum" ; \
+		"alpine-registry-$(branch)-x86_64.iso.sha256sum" ; \
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
-		"alpine-darkhttpd-edge-x86_64.iso.sha256sum" ; \
+		"alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum" ; \
 	echo images signed
 
 torrent:
@@ -154,8 +155,8 @@ torrent:
 		-a "http://bt.careland.com.cn:6969/announce" \
 		-a "http://i.bandito.org/announce" \
 		-a "http://bttrack.9you.com/announce" \
-		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-kloster-edge-x86_64.iso \
-		"alpine-kloster-edge-x86_64.iso"; \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-kloster-$(branch)-x86_64.iso \
+		"alpine-kloster-$(branch)-x86_64.iso"; \
 	mktorrent -a "udp://tracker.openbittorrent.com:80" \
 		-a "udp://tracker.publicbt.com:80" \
 		-a "udp://tracker.istole.it:80" \
@@ -167,8 +168,8 @@ torrent:
 		-a "http://bt.careland.com.cn:6969/announce" \
 		-a "http://i.bandito.org/announce" \
 		-a "http://bttrack.9you.com/announce" \
-		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-docker-edge-x86_64.iso \
-		"alpine-docker-edge-x86_64.iso"; \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-docker-$(branch)-x86_64.iso \
+		"alpine-docker-$(branch)-x86_64.iso"; \
 	mktorrent -a "udp://tracker.openbittorrent.com:80" \
 		-a "udp://tracker.publicbt.com:80" \
 		-a "udp://tracker.istole.it:80" \
@@ -180,8 +181,8 @@ torrent:
 		-a "http://bt.careland.com.cn:6969/announce" \
 		-a "http://i.bandito.org/announce" \
 		-a "http://bttrack.9you.com/announce" \
-		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-registry-edge-x86_64.iso \
-		"alpine-registry-edge-x86_64.iso"; \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-registry-$(branch)-x86_64.iso \
+		"alpine-registry-$(branch)-x86_64.iso"; \
 	mktorrent -a "udp://tracker.openbittorrent.com:80" \
 		-a "udp://tracker.publicbt.com:80" \
 		-a "udp://tracker.istole.it:80" \
@@ -193,8 +194,8 @@ torrent:
 		-a "http://bt.careland.com.cn:6969/announce" \
 		-a "http://i.bandito.org/announce" \
 		-a "http://bttrack.9you.com/announce" \
-		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-darkhttpd-edge-x86_64.iso \
-		"alpine-darkhttpd-edge-x86_64.iso"; \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-darkhttpd-$(branch)-x86_64.iso \
+		"alpine-darkhttpd-$(branch)-x86_64.iso"; \
 	echo torrents created
 
 delrelease:
@@ -215,53 +216,53 @@ release:
 upload:
 	cd ./iso; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-kloster-edge-x86_64.iso.sha256sum" \
-		--file "alpine-kloster-edge-x86_64.iso.sha256sum"; \
+		--name "alpine-kloster-$(branch)-x86_64.iso.sha256sum" \
+		--file "alpine-kloster-$(branch)-x86_64.iso.sha256sum"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-kloster-edge-x86_64.iso.sha256sum.asc" \
-		--file "alpine-kloster-edge-x86_64.iso.sha256sum.asc";\
+		--name "alpine-kloster-$(branch)-x86_64.iso.sha256sum.asc" \
+		--file "alpine-kloster-$(branch)-x86_64.iso.sha256sum.asc";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-kloster-edge-x86_64.iso.torrent" \
-		--file "alpine-kloster-edge-x86_64.iso.torrent";\
+		--name "alpine-kloster-$(branch)-x86_64.iso.torrent" \
+		--file "alpine-kloster-$(branch)-x86_64.iso.torrent";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-kloster-edge-x86_64.iso" \
-		--file "alpine-kloster-edge-x86_64.iso"; \
+		--name "alpine-kloster-$(branch)-x86_64.iso" \
+		--file "alpine-kloster-$(branch)-x86_64.iso"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-docker-edge-x86_64.iso.sha256sum" \
-		--file "alpine-docker-edge-x86_64.iso.sha256sum"; \
+		--name "alpine-docker-$(branch)-x86_64.iso.sha256sum" \
+		--file "alpine-docker-$(branch)-x86_64.iso.sha256sum"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-docker-edge-x86_64.iso.sha256sum.asc" \
-		--file "alpine-docker-edge-x86_64.iso.sha256sum.asc";\
+		--name "alpine-docker-$(branch)-x86_64.iso.sha256sum.asc" \
+		--file "alpine-docker-$(branch)-x86_64.iso.sha256sum.asc";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-docker-edge-x86_64.iso.torrent" \
-		--file "alpine-docker-edge-x86_64.iso.torrent";\
+		--name "alpine-docker-$(branch)-x86_64.iso.torrent" \
+		--file "alpine-docker-$(branch)-x86_64.iso.torrent";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-docker-edge-x86_64.iso" \
-		--file "alpine-docker-edge-x86_64.iso"; \
+		--name "alpine-docker-$(branch)-x86_64.iso" \
+		--file "alpine-docker-$(branch)-x86_64.iso"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-registry-edge-x86_64.iso.sha256sum" \
-		--file "alpine-registry-edge-x86_64.iso.sha256sum"; \
+		--name "alpine-registry-$(branch)-x86_64.iso.sha256sum" \
+		--file "alpine-registry-$(branch)-x86_64.iso.sha256sum"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-registry-edge-x86_64.iso.sha256sum.asc" \
-		--file "alpine-registry-edge-x86_64.iso.sha256sum.asc";\
+		--name "alpine-registry-$(branch)-x86_64.iso.sha256sum.asc" \
+		--file "alpine-registry-$(branch)-x86_64.iso.sha256sum.asc";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-registry-edge-x86_64.iso.torrent" \
-		--file "alpine-registry-edge-x86_64.iso.torrent";\
+		--name "alpine-registry-$(branch)-x86_64.iso.torrent" \
+		--file "alpine-registry-$(branch)-x86_64.iso.torrent";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-registry-edge-x86_64.iso" \
-		--file "alpine-registry-edge-x86_64.iso"; \
+		--name "alpine-registry-$(branch)-x86_64.iso" \
+		--file "alpine-registry-$(branch)-x86_64.iso"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-darkhttpd-edge-x86_64.iso.sha256sum" \
-		--file "alpine-darkhttpd-edge-x86_64.iso.sha256sum"; \
+		--name "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum" \
+		--file "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-darkhttpd-edge-x86_64.iso.sha256sum.asc" \
-		--file "alpine-darkhttpd-edge-x86_64.iso.sha256sum.asc";\
+		--name "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum.asc" \
+		--file "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum.asc";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-darkhttpd-edge-x86_64.iso.torrent" \
-		--file "alpine-darkhttpd-edge-x86_64.iso.torrent";\
+		--name "alpine-darkhttpd-$(branch)-x86_64.iso.torrent" \
+		--file "alpine-darkhttpd-$(branch)-x86_64.iso.torrent";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-darkhttpd-edge-x86_64.iso" \
-		--file "alpine-darkhttpd-edge-x86_64.iso"; \
+		--name "alpine-darkhttpd-$(branch)-x86_64.iso" \
+		--file "alpine-darkhttpd-$(branch)-x86_64.iso"; \
 
 
 docker-build:
