@@ -32,7 +32,7 @@ define ALPINE_XGO_PACKAGES
 endef
 
 define ALPINE_DOCKER_PACKAGES
-\"\$$apks docker\"
+\"\$$apks docker@v3.6\"
 endef
 
 define ALPINE_DOCKER_REGISTRY_PACKAGES
