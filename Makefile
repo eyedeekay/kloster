@@ -45,7 +45,7 @@ endef
 
 list:
 	@echo ""
-\	@echo ""
+	@echo ""
 	@echo ""
 
 pv:

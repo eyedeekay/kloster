@@ -35,6 +35,7 @@ xgo-pv:
 		--repository       $(mirror)$(edge_branch)/main \
 		--extra-repository $(mirror)$(edge_branch)/community \
 		--extra-repository $(mirror)$(edge_branch)/testing \
+		$(extra_repository) \
 		--profile xgo
 
 define XGO_PV_FILE
@@ -55,7 +56,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 1024
+memory = 6144
 name = "xgo"
 vcpus = 1
 maxvcpus = 1
@@ -78,7 +79,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 1024
+memory = 6144
 name = "xgo"
 vcpus = 1
 maxvcpus = 1
@@ -104,5 +105,5 @@ pv-xgo-file:
 pv-xgo-disk:
 	rm -rf iso/xgo; mkdir -p iso/xgo
 	mount -t iso9660 -o loop iso/alpine-xgo-$(branch)-x86_64.iso iso/xgo
-	dd if=/dev/zero of=iso/xgo.img bs=1M count=3000
+	dd if=/dev/zero of=iso/xgo.img bs=1M count=10000
 	make pv-xgo-file
