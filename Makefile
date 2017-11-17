@@ -28,7 +28,7 @@ define ALPINE_XEN_PACKAGES
 endef
 
 define ALPINE_XGO_PACKAGES
-\"\$$apks x2goserver\"
+\"\$$apks x2goserver docker\"
 endef
 
 define ALPINE_DOCKER_PACKAGES
@@ -45,7 +45,7 @@ endef
 
 list:
 	@echo ""
-	@echo ""
+\	@echo ""
 	@echo ""
 
 pv:
