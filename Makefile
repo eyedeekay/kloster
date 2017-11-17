@@ -93,7 +93,7 @@ kloster:
 		--arch x86_64 \
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
-		$(extra_repository) \
+		"$$extra_repository" \
 		--profile kloster
 
 searchm:

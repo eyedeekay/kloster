@@ -35,7 +35,7 @@ xgo-pv:
 		--repository       $(mirror)$(edge_branch)/main \
 		--extra-repository $(mirror)$(edge_branch)/community \
 		--extra-repository $(mirror)$(edge_branch)/testing \
-		$(extra_repository) \
+		"$$edge_extra_repository" \
 		--profile xgo
 
 define XGO_PV_FILE
