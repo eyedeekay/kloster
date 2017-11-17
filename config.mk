@@ -8,4 +8,4 @@ define edge_extra_repository
 --extra-repository http://dl-cdn.alpinelinux.org/alpine/v3.6/community
 endef
 
-edge_extra_repository
+export edge_extra_repository
