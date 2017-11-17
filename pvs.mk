@@ -123,7 +123,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 512
+memory = $(low_mem)
 name = "docker"
 vcpus = 1
 maxvcpus = 1
@@ -146,7 +146,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 512
+memory = $(low_mem)
 name = "docker"
 vcpus = 1
 maxvcpus = 1
@@ -167,7 +167,7 @@ endef
 export DOCKER_GRUB
 
 pv-docker-file:
-	@echo "$$DOCKER_PV_FILE" | tee -a docker.cfg
+	@echo "$$DOCKER_PV_FILE" | tee docker.cfg
 
 pv-docker-disk:
 	rm -rf iso/docker; mkdir -p iso/docker
@@ -193,7 +193,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 512
+memory = $(low_mem)
 name = "registry"
 vcpus = 1
 maxvcpus = 1
@@ -216,7 +216,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 512
+memory = $(low_mem)
 name = "registry"
 vcpus = 1
 maxvcpus = 1
@@ -262,7 +262,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 512
+memory = $(low_mem)
 name = "darkhttpd"
 vcpus = 1
 maxvcpus = 1
@@ -285,7 +285,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 512
+memory = $(low_mem)
 name = "darkhttpd"
 vcpus = 1
 maxvcpus = 1

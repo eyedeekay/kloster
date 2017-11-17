@@ -11,3 +11,8 @@ define edge_extra_repository
 endef
 
 export edge_extra_repository
+
+export low_mem = 512
+export med_mem = 2048
+export high_mem = 6144
+

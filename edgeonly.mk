@@ -56,7 +56,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 6144
+memory = $(high_mem)
 name = "xgo"
 vcpus = 1
 maxvcpus = 1
@@ -79,7 +79,7 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = 6144
+memory = $(high_mem)
 name = "xgo"
 vcpus = 1
 maxvcpus = 1
@@ -100,7 +100,7 @@ endef
 export XGO_GRUB
 
 pv-xgo-file:
-	@echo "$$XGO_PV_FILE" | tee -a xgo.cfg
+	@echo "$$XGO_PV_FILE" | tee xgo.cfg
 
 pv-xgo-disk:
 	rm -rf iso/xgo; mkdir -p iso/xgo
