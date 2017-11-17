@@ -347,7 +347,6 @@ xgo-pv:
 		--arch x86_64 \
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
-		--extra-repository $(mirror)$(branch)/testing \
 		$$edge_extra_repository \
 		--profile xgo
 

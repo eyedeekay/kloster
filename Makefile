@@ -28,7 +28,7 @@ define ALPINE_XEN_PACKAGES
 endef
 
 define ALPINE_XGO_PACKAGES
-\"\$$apks x2goserver@edge docker\"
+\"\$$apks x2goserver@edge pulseaudio@edge docker\"
 endef
 
 define ALPINE_DOCKER_PACKAGES

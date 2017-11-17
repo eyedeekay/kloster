@@ -8,6 +8,7 @@ export branch = v3.6
 define edge_extra_repository
 --extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/main
 --extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/community
+--extra-repository http://dl-cdn.alpinelinux.org/alpine/edge/testing
 endef
 
 export edge_extra_repository
