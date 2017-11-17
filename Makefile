@@ -29,7 +29,7 @@ endef
 
 define ALPINE_XGO_PACKAGES
 \"\$$apks x2goserver@edge pulseaudio@edge docker xf86-video-ati \
-xf86-video-nouveau xf86-video-amdgpu xf86-video-intel\
+xf86-video-nouveau xf86-video-amdgpu xf86-video-intel xf86-input-synaptics \
 \"
 endef
 

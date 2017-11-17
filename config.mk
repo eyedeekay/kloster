@@ -16,4 +16,4 @@ export edge_extra_repository
 export low_mem = 512
 export med_mem = 2048
 export high_mem = 6144
-
+export super_high_mem = 12288
