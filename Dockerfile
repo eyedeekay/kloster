@@ -11,6 +11,7 @@ RUN chmod +x /home/build/aports/scripts/*.sh && \
         make pv-docker-config | tee /home/build/aports/scripts/mkimg.docker.sh && \
         make pv-docker-registry-config | tee /home/build/aports/scripts/mkimg.registry.sh && \
         make pv-darkhttpd-config | tee /home/build/aports/scripts/mkimg.darkhttpd.sh && \
+        make pv-xgo-config | tee /home/build/aports/scripts/mkimg.xgo.sh && \
         chmod +x /home/build/aports/scripts/mkimg.kloster.sh /home/build/aports/scripts/mkimg.docker.sh /home/build/aports/scripts/mkimg.registry.sh /home/build/aports/scripts/mkimg.darkhttpd.sh
 RUN echo 'build ALL=(ALL) NOPASSWD: ALL' | tee -a /etc/sudoers
 USER build

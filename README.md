@@ -16,6 +16,7 @@ Planned Default DomU's
   * Alpine, deploying Docker
   * Alpine, deploying Docker-Registry
   * Alpine, deploying DarkHTTPD
+  * Alpine, deploying x2goserver and a variety of games
   * Alpine, deploying i2pd in a Whonix-like configuration
   * Whonix
   * Network VM

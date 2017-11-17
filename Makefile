@@ -27,6 +27,10 @@ define ALPINE_XEN_PACKAGES
 \"\$$apks xen xen-bridge\"
 endef
 
+define ALPINE_XGO_PACKAGES
+\"\$$apks x2goserver\"
+endef
+
 define ALPINE_DOCKER_PACKAGES
 \"\$$apks docker\"
 endef
@@ -73,6 +77,7 @@ config:
 
 include pvs.mk
 include config.mk
+include edgeonly.mk
 
 build:
 	docker build --rm -f Dockerfile -t alpine-xen-iso .
@@ -279,6 +284,7 @@ compile:
 	make docker-iso; \
 	make docker-registry-iso; \
 	make darkhttpd-iso; \
+	make xgo-iso; \
 	true
 
 rerelease:
