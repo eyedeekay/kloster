@@ -171,7 +171,7 @@ pv-docker-file:
 
 pv-docker-disk:
 	rm -rf iso/docker; mkdir -p iso/docker
-	mount -t iso9660 -o loop iso/alpine-docker-$(branch)-x86_64.iso iso/docker
+	sudo -E mount -t iso9660 -o loop iso/alpine-docker-$(branch)-x86_64.iso iso/docker
 	dd if=/dev/zero of=iso/docker.img bs=1M count=3000
 	make pv-docker-file
 
@@ -241,7 +241,7 @@ pv-registry-file:
 
 pv-registry-disk:
 	rm -rf iso/registry; mkdir -p iso/registry
-	mount -t iso9660 -o loop iso/alpine-registry-$(branch)-x86_64.iso iso/registry
+	sudo -E mount -t iso9660 -o loop iso/alpine-registry-$(branch)-x86_64.iso iso/registry
 	dd if=/dev/zero of=iso/registry.img bs=1M count=3000
 
 define DARKHTTPD_PV_FILE
@@ -310,7 +310,7 @@ pv-darkhttpd-file:
 
 pv-darkhttpd-disk:
 	rm -rf iso/dockerhttpd; mkdir -p iso/darkhttpd
-	mount -t iso9660 -o loop iso/alpine-darkhttpd-$(branch)-x86_64.iso iso/darkhttpd
+	sudo -E mount -t iso9660 -o loop iso/alpine-darkhttpd-$(branch)-x86_64.iso iso/darkhttpd
 	dd if=/dev/zero of=iso/darkhttpd.img bs=1M count=3000
 	make pv-darkhttpd-file
 
@@ -417,6 +417,6 @@ pv-xgo-file:
 
 pv-xgo-disk:
 	rm -rf iso/xgo; mkdir -p iso/xgo
-	mount -t iso9660 -o loop iso/alpine-xgo-$(branch)-x86_64.iso iso/xgo
+	sudo -E mount -t iso9660 -o loop iso/alpine-xgo-$(branch)-x86_64.iso iso/xgo
 	dd if=/dev/zero of=iso/xgo.img bs=1M count=10000
 	make pv-xgo-file
