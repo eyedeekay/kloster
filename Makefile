@@ -28,7 +28,7 @@ define ALPINE_XEN_PACKAGES
 endef
 
 define ALPINE_XGO_PACKAGES
-\"\$$apks x2goserver pulseaudio docker xf86-video-ati \
+\"\$$apks x2goserver xf86-video-ati \
 xf86-video-nouveau xf86-video-amdgpu xf86-video-intel xf86-input-synaptics \
 \"
 endef
