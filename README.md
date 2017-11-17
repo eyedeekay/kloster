@@ -23,6 +23,12 @@ Planned Default DomU's
   * USB VM
   * Debian-minbase
 
+*neat things I've noted about using mkimage so far that I didn't realize at*
+*first. Maybe I missed it in the documentation.*
+
+  * you can specify as many --extra-repositories as you want.
+  * you can install packages with pins
+
 References
 ----------
 

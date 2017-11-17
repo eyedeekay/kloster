@@ -28,11 +28,11 @@ define ALPINE_XEN_PACKAGES
 endef
 
 define ALPINE_XGO_PACKAGES
-\"\$$apks x2goserver docker\"
+\"\$$apks x2goserver@edge docker\"
 endef
 
 define ALPINE_DOCKER_PACKAGES
-\"\$$apks docker@v3.6\"
+\"\$$apks docker\"
 endef
 
 define ALPINE_DOCKER_REGISTRY_PACKAGES

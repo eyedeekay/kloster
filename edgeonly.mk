@@ -1,7 +1,7 @@
 ## This makefile contains instructions for creating iso's that demand the edge
 #repo of Alpine linux. As packages are added to stable branches, they will be
 #moved
-export edge_branch = edge
+
 xgo-iso:
 	docker rm -f alpine-xgo-iso; \
 	docker run -d --privileged \
@@ -29,12 +29,12 @@ pv-xgo-config:
 	@echo ""
 
 xgo-pv:
-	sh mkimage.sh --tag $(edge_branch) \
+	sh mkimage.sh --tag $(branch) \
 		--outdir ~/iso \
 		--arch x86_64 \
-		--repository       $(mirror)$(edge_branch)/main \
-		--extra-repository $(mirror)$(edge_branch)/community \
-		--extra-repository $(mirror)$(edge_branch)/testing \
+		--repository       $(mirror)$(branch)/main \
+		--extra-repository $(mirror)$(branch)/community \
+		--extra-repository $(mirror)$(branch)/testing \
 		$$edge_extra_repository \
 		--profile xgo
 
