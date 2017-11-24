@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+    Kloster
+    </title>
+</head>
+<h1>Kloster</h1>
+
+<p>Kloster is an Alpine Linux+Xen spin I am using to host my own services. It's not
+much right now, but the intention is to have a tiny, secure Dom0 based on Alpine
+Linux with the Sway wayland wm that comes with scripts to set up a set of
+default DomU's, not entirely unlike Qubes but with the express purpose of using
+the DomU's to deploy services in a long-term way and no intention to be directly
+useful as a desktop OS. Do not take this setup to be secure! I'm just
+experimenting with the ideas, I don't know if I've made a mistake! Use a mature
+system if you want security.</p>
+
+<h2>Planned Default DomU's</h2>
+
+<ul>
+<li>Alpine, deploying Docker</li>
+<li>Alpine, deploying Docker-Registry</li>
+<li>Alpine, deploying DarkHTTPD</li>
+<li>Alpine, deploying x2goserver and a variety of games</li>
+<li>Alpine, deploying i2pd in a Whonix-like configuration</li>
+<li>Whonix</li>
+<li>Network VM</li>
+<li>USB VM</li>
+<li>Debian-minbase</li>
+</ul>
+
+<p><em>neat things I've noted about using mkimage so far that I didn't realize at</em>
+<em>first. Maybe I missed it in the documentation.</em></p>
+
+<ul>
+<li>you can specify as many --extra-repositories as you want.</li>
+<li>you can install packages with pins</li>
+</ul>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://wiki.alpinelinux.org/wiki/How_to_make_a_custom_ISO_image_with_mkimage">How to make a custom ISO image with mkimage</a></li>
+<li><a href="http://git.alpinelinux.org/cgit/aports/">Aports Tree, needed to obtain mkimage.sh</a> (git://git.alpinelinux.org/aports)
+<ul>
+<li><a href="https://github.com/eyedeekay/aports">Forked out to fix build errors, likely temporary</a></li>
+</ul></li>
+<li><a href="https://wiki.alpinelinux.org/wiki/Create_Alpine_Linux_PV_DomU">Create an Alpine Linux paravirtualized DomU</a></li>
+</ul>
+<h1>It is <em>Shockingly</em> easy to produce a custom Alpine Linux LiveCD</h1>
+
+<p>Like, sickeningly so. Really, it'd mind-blowing how easy it is. Especially if
+you use a "stable" baseline derived from one of Alpine's point releases. It's
+a little less reliable if you need software in unstable. I am going to really,
+really drag out this tutorial and be exhaustive on my method for generating
+Alpine LiveCD's.</p>
+
+<p>OK, so what do you need to create an Alpine Linux LiveCD? Well, for starters,
+it helps to have an Alpine Linux installation running already. Fortunately for
+me, I use Docker all the time and Alpine-on-Docker gets is used preposterously
+often. So, even though I'm pretty sure all the dependencies can be installed
+on any distribution, I think the most reliable way to generate these LiveCD's
+is in a Docker container used especially for the purpose. Of course, you can
+always use a native Alpine installation with this method, or you can use your
+virtualization/containerization technology of your choice. This tutorial will
+use Docker though.</p>
+
+<h2>Step Zero: Dealing with some mild counter-intuition</h2>
+
+<p>Alpine doesn't produce packages containing it's mkimage.sh scripts(yet, I really
+don't know if it will or won't be packaged). Instead, you get the scripts by
+cloning the <a href="http://git.alpinelinux.org/cgit/aports/">aports tree</a>. This will
+be covered in Step Two: Install the Alpine Linux toolchain.</p>
+
+<h2>Step One: Creating a Container to work in</h2>
+
+<p>First, you'll need to create an Alpine Linux based Docker container, which if
+you've already used docker, you know is very easy.</p>
+
+<pre><code>    FROM alpine:edge
+</code></pre>
+
+<p>Next, enable the community repository.</p>
+
+<pre><code>    RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" | tee -a /etc/apk/repositories
+</code></pre>
+
+<h2>Step Two: Install the Alpine Linux toolchain</h2>
+
+<pre><code>    RUN apk update
+    RUN apk add alpine-sdk build-base apk-tools alpine-conf busybox \
+            fakeroot syslinux xorriso mtools dosfstools grub-efi make \
+            git sudo
+</code></pre>
+
+<p>Sometimes, I just keep a container with all this stuff in it, and use it as a
+new base container for creating alpine packagesof all types.</p>
+
+<h2>Step Three: Create a "build" user and an "abuild" group</h2>
+
+<p>Finally, you'll need to create a "build" user with it's own home directory, who
+is a member of the "abuild" group. This will allow that user to generate Alpine
+packages and sign them with the keys we will be generating momentarily.</p>
+
+<pre><code>    RUN adduser -h /home/build -D build -G abuild
+</code></pre>
+
+<p>Because this is being run in a Docker container(And therefore there is no TTY
+to capture a sudo password during the build phase) we also need to add the build
+user to the sudoers file. Because this container will only be used to generate
+the LiveCD and will not be running any services, this seems to be acceptable.
+This allows us to use the default settings defined by mkimage and or the Alpine
+toolchain.</p>
+
+<pre><code>    RUN echo 'build ALL=(ALL) NOPASSWD: ALL' | tee -a /etc/sudoers
+</code></pre>
+
+<h2>Step Four: Clone the aports tree</h2>
+
+<p>Now that you have your toolchain and build user set up, you'll need to obtain
+the "aports" tree where alpine packages are organized and built according to
+rules. In particular, you need the scripts directory.</p>
+
+<pre><code>    RUN git clone http://git.alpinelinux.org/cgit/aports/ /home/build/aports
+    RUN cd /home/build/aports &amp;&amp; apk update
+</code></pre>
+
+<h2>Step Five: Copy, Create, or Generate a mkimage sub-script</h2>
+
+<p>This is far and away the only involved task in the whole process. mkimage.sh
+uses these little sub-scripts that configure package installation on the LiveCD.
+Because I'm a chronic Makefile abuser, I embed parameters to generate the files
+in a Makefile, then have the Makefile emit them inside the container. You don't
+have to do that, though, a basic mkimage sub-script is just a function, which
+specifies a few variables. <strong>NOTE</strong> this section will grow as I find out more
+about what the variables are. But the most relevant of them are covered here.</p>
+
+<ul>
+<li>apks: Obviously, this is a list of apks to try and install on the LiveCD. If
+they are in an unbuilt or failing state, and you're using edge as a basis for
+your LiveCD, then it will fail and inform you of the packages that failed to
+install.</li>
+<li>kernel_addons: This is a list of kernel addons you want to exist on your
+LiveCD. I'm not sure, but these may be automatically added based on the
+dependencies of your apk's.</li>
+<li>kernel_cmdline: This is a list of commands to add to your Linux Kernel
+command line.</li>
+<li>syslinux_serial: This is used to configure the syslinux serial interface.
+For most people, "0 115200" should be fine.</li>
+</ul>
+
+<p>So, first, decide on an identifier and create a file named
+<em>mkimg.$identifier.sh</em> and add your #! line at the top to specify the
+interpreter. Then declare a function, with the name <em>profile_$identifier</em> and
+call, at least <em>profile_standard</em>. This function <em>profile_standard</em> is already
+defined in the other mkimg.*.sh scripts in the aports scripts directory and it
+makes sure that you have the Alpine standard packages, which are pretty minimal.
+You could also write your own function to base it on by examinging and copying
+parts of the profile_standard option.</p>
+
+<pre><code>    #! /bin/sh
+    profile_kloster(){
+      profile_standard
+</code></pre>
+
+<p>Next, you should set the variables associated with the kernel_cmdline,
+syslinux_serial, and kernel_addons. In most cases, you'll only need to set
+these once, but in case of more complex configurations, you may need to add
+things to them conditionally, or in many stages. In that case, you may need to
+prefix the value set by the variables with the value of the variable itself,
+like in the apk's example to follow.</p>
+
+<pre><code>      kernel_cmdline=""
+      syslinux_serial="0 115200"
+      kernel_addons="zfs spl"
+</code></pre>
+
+<p>Now, you can specify the apks you wish to install. Note that each of these apk
+lines begins with an $apks; this is because the value is additive. While this
+format isn't strictly necessary in this static example, in more complex
+configurations where packages are selected dynamically, this pattern is very
+useful.</p>
+
+<pre><code>      apks="$apks iscsi-scst zfs-scripts zfs zfs-utils-py cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils parted rsync sfdisk syslinux unrar util-linux xfsprogs dosfstools ntfs-3g ethtool multipath-tools linux-firmware openvswitch"
+      apks="$apks sway gdm mutt nano htop wireless-tools"
+      apks="$apks xen xen-bridge"
+</code></pre>
+
+<p>Finally, loop over the apk and kernel_addons variables in order to finalize the
+configuration of the LiveCD.</p>
+
+<pre><code>      local _k _a
+      for _k in $kernel_flavors; do
+          apks="$apks linux-$_k"
+          for _a in $kernel_addons; do
+              apks="$apks $_a-$_k"
+          done
+      done
+</code></pre>
+
+<p>and close the function.</p>
+
+<pre><code>    }
+</code></pre>
+
+<h2>Step Six:</h2>
+
+<p>Finally, run the mkimage.sh script with the newly created LiveCD profile. In
+surprisingly short order, you'll have a custom LiveCD containing your custom
+packages.</p>
+
+<pre><code>    sh mkimage.sh --tag v3.6 \
+    --outdir ~/iso \
+    --arch x86_64 \
+    --repository       http://dl-cdn.alpinelinux.org/alpine/v3.6/main \
+    --extra-repository http://dl-cdn.alpinelinux.org/alpine/v3.6/community \
+    "$extra_repository" \
+    --profile kloster
+</code></pre>

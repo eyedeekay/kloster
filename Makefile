@@ -20,7 +20,7 @@ openvswitch\"
 endef
 
 define ALPINE_SWAY_PACKAGES
-sway gdm mutt nano htop wireless-tools
+\"\$$apks sway gdm mutt nano htop wireless-tools\"
 endef
 
 define ALPINE_XEN_PACKAGES
@@ -28,8 +28,8 @@ define ALPINE_XEN_PACKAGES
 endef
 
 define ALPINE_XGO_PACKAGES
-\"\$$apks x2goserver xf86-video-ati \
-xf86-video-nouveau xf86-video-amdgpu xf86-video-intel xf86-input-synaptics \
+\"\$$apks x2goserver xf86-video-ati xf86-video-nouveau xf86-video-amdgpu \
+xf86-video-intel xf86-input-synaptics \
 \"
 endef
 
