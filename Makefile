@@ -24,6 +24,9 @@ define ALPINE_SWAY_PACKAGES
 mesa-dri-intel mesa-dri-nouveau lightdm xorg-server-xwayland udev dmenu\"
 endef
 
+#NOTES: Sway requires a pax flag(-m) to be set.
+
+
 define ALPINE_XEN_PACKAGES
 \"\$$apks xen xen-bridge\"
 endef
