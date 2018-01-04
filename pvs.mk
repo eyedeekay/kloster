@@ -1,5 +1,5 @@
 pv-docker-config:
-	@echo "#! /bin/sh" | tee
+	@echo "#! /bin/sh"
 	@echo "#export PROFILENAME=docker"
 	@echo "profile_docker(){"
 	@echo "    profile_standard"
@@ -26,7 +26,7 @@ docker-pv:
 		--profile docker
 
 pv-docker-registry-config:
-	@echo "#! /bin/sh" | tee
+	@echo "#! /bin/sh"
 	@echo "#export PROFILENAME=registry"
 	@echo "profile_registry(){"
 	@echo "    profile_standard"
@@ -53,7 +53,7 @@ docker-registry-pv:
 		--profile registry
 
 pv-darkhttpd-config:
-	@echo "#! /bin/sh" | tee
+	@echo "#! /bin/sh"
 	@echo "#export PROFILENAME=docker"
 	@echo "profile_darkhttpd(){"
 	@echo "    profile_standard"
@@ -324,7 +324,7 @@ xgo-iso:
 		-t alpine-xen-iso make xgo-pv
 
 pv-xgo-config:
-	@echo "#! /bin/sh" | tee
+	@echo "#! /bin/sh"
 	@echo "#export PROFILENAME=xgo"
 	@echo "profile_xgo(){"
 	@echo "    profile_standard"

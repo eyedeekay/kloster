@@ -64,11 +64,18 @@ rinfo:
 	@echo $(release)
 
 config:
-	@echo "#! /bin/sh" | tee
+	@echo "#! /bin/sh"
 	@echo "#export PROFILENAME=kloster"
+	@echo "build_xen() {"
+	@echo "	apk fetch --root \"\$$APKROOT\" --stdout xen-hypervisor | tar -C \"$DESTDIR\" -xz boot"
+	@echo "}"
+	@echo "section_xen() {"
+	@echo "	[ -n \"\$${xen_params+set}\" ] || return 0"
+	@echo "	build_section xen \$$ARCH $(apk fetch --root \"\$$APKROOT\" --simulate xen-hypervisor | checksum)"
+	@echo "}"
 	@echo "profile_kloster(){"
 	@echo "    profile_standard"
-	@echo "    kernel_cmdline=\"\""
+	@echo "    kernel_cmdline=\"nomodeset\""
 	@echo "    syslinux_serial=\"0 115200\""
 	@echo "    kernel_addons=\"zfs spl xen\""
 	@echo "    apks=$(ALPINE_BASE_PACKAGES)"
