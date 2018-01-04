@@ -22,7 +22,7 @@ endef
 define ALPINE_SWAY_PACKAGES
 \"\$$apks sway mutt nano htop wireless-tools mesa mesa-dri-ati mesa-dri-intel \
 mesa-dri-nouveau xorg-server-xwayland xf86-input-libinput xf86-input-synaptics \
-xf86-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo st\"
+xf86-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo st weston\"
 endef
 
 export XEN_KERNEL=xen
@@ -62,6 +62,9 @@ pv:
 
 rinfo:
 	@echo $(release)
+
+clean:
+	docker rm -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-xgo-iso
 
 config:
 	@echo "#! /bin/sh"
