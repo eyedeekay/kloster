@@ -20,9 +20,12 @@ openvswitch\"
 endef
 
 define ALPINE_SWAY_PACKAGES
-\"\$$apks sway gdm mutt nano htop wireless-tools mesa mesa-dri-ati sudo \
-mesa-dri-intel mesa-dri-nouveau lightdm xorg-server-xwayland udev dmenu\"
+\"\$$apks sway mutt nano htop wireless-tools mesa mesa-dri-ati mesa-dri-intel \
+mesa-dri-nouveau xorg-server-xwayland xf86-input-libinput xf86-input-synaptics \
+x486-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo\"
 endef
+
+export XEN_KERNEL=xen
 
 #NOTES: Sway requires a pax flag(-m) to be set.
 
@@ -71,6 +74,7 @@ config:
 	@echo "    apks=$(ALPINE_BASE_PACKAGES)"
 	@echo "    apks=$(ALPINE_SWAY_PACKAGES)"
 	@echo "    apks=$(ALPINE_XEN_PACKAGES)"
+	@echo "    kernel_flavors=$(XEN_KERNEL)"
 	@echo "    local _k _a"
 	@echo "    for _k in \$$kernel_flavors; do"
 	@echo "        apks=\"\$$apks linux-\$$_k\""
