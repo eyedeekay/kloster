@@ -128,7 +128,7 @@ install-search:
 	@echo "#! /usr/bin/env sh" | tee $(LOCAL_PATH)/apk-search
 	@echo "SEARCHTERM=\"\$$1\"" | tee -a $(LOCAL_PATH)/apk-search
 	@echo "docker run -d --restart always --name alpine-apk-search -t alpine-xen-iso sh 1>/dev/null 2>/dev/null" | tee -a $(LOCAL_PATH)/apk-search
-	@echo "docker exec -i -t alpine-apk-search apk search \$$SEARCHTERM" | tee -a $(LOCAL_PATH)/apk-search
+	@echo "docker exec -i -t alpine-apk-search sh -c \"apk update && apk search \$$SEARCHTERM\"" | tee -a $(LOCAL_PATH)/apk-search
 	@echo "docker rm -f alpine-apk-search 1>/dev/null 2>/dev/null" | tee -a $(LOCAL_PATH)/apk-search
 	chmod +x $(LOCAL_PATH)/apk-search
 
