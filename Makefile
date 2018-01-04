@@ -113,8 +113,8 @@ kloster:
 		--arch x86_64 \
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
-		--extra-repository $(mirror)/edge/testing \
-		"$$extra_repository" \
+		--extra-repository $(mirror)edge/testing \
+		"$$edge_extra_repository" \
 		--profile kloster
 
 searchm:
