@@ -22,7 +22,7 @@ endef
 define ALPINE_SWAY_PACKAGES
 \"\$$apks sway mutt nano htop wireless-tools mesa mesa-dri-ati mesa-dri-intel \
 mesa-dri-nouveau xorg-server-xwayland xf86-input-libinput xf86-input-synaptics \
-x486-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo\"
+x486-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo st\"
 endef
 
 export XEN_KERNEL=xen
