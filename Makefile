@@ -67,7 +67,7 @@ config:
 	@echo "#! /bin/sh"
 	@echo "#export PROFILENAME=kloster"
 	@echo "build_xen() {"
-	@echo "	apk fetch --root \"\$$APKROOT\" --stdout xen-hypervisor | tar -C \"$DESTDIR\" -xz boot"
+	@echo "	apk fetch --root \"\$$APKROOT\" --stdout xen-hypervisor | tar -C \"\$$DESTDIR\" -xz boot"
 	@echo "}"
 	@echo "section_xen() {"
 	@echo "	[ -n \"\$${xen_params+set}\" ] || return 0"
