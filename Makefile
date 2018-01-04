@@ -70,7 +70,7 @@ config:
 	@echo "    profile_standard"
 	@echo "    kernel_cmdline=\"\""
 	@echo "    syslinux_serial=\"0 115200\""
-	@echo "    kernel_addons=\"zfs spl\""
+	@echo "    kernel_addons=\"zfs spl xen\""
 	@echo "    apks=$(ALPINE_BASE_PACKAGES)"
 	@echo "    apks=$(ALPINE_SWAY_PACKAGES)"
 	@echo "    apks=$(ALPINE_XEN_PACKAGES)"
