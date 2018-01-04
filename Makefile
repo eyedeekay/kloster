@@ -16,7 +16,7 @@ define ALPINE_BASE_PACKAGES
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
 parted rsync sfdisk syslinux unrar util-linux xfsprogs \
 dosfstools ntfs-3g ethtool multipath-tools linux-firmware \
-openvswitch\"
+openvswitch paxctl\"
 endef
 
 define ALPINE_SWAY_PACKAGES
