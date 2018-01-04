@@ -22,7 +22,8 @@ endef
 define ALPINE_SWAY_PACKAGES
 \"\$$apks sway mutt nano htop wireless-tools mesa mesa-dri-ati mesa-dri-intel \
 mesa-dri-nouveau xorg-server-xwayland xf86-input-libinput xf86-input-synaptics \
-xf86-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo st weston\"
+xf86-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo st wayland \
+weston-xwayland weston-shell-desktop\"
 endef
 
 export XEN_KERNEL=xen
@@ -128,7 +129,7 @@ install-search:
 	@echo "#! /usr/bin/env sh" | tee $(LOCAL_PATH)/apk-search
 	@echo "SEARCHTERM=\"\$$1\"" | tee -a $(LOCAL_PATH)/apk-search
 	@echo "docker run -d --restart always --name alpine-apk-search -t alpine-xen-iso sh 1>/dev/null 2>/dev/null" | tee -a $(LOCAL_PATH)/apk-search
-	@echo "docker exec -i -t alpine-apk-search sh -c \"apk update && apk search \$$SEARCHTERM\"" | tee -a $(LOCAL_PATH)/apk-search
+	@echo "docker exec -i -u root -t alpine-apk-search sh -c \"apk update; echo apk search \"\$$SEARCHTERM\"; apk search \"\$$SEARCHTERM\"\"" | tee -a $(LOCAL_PATH)/apk-search
 	@echo "docker rm -f alpine-apk-search 1>/dev/null 2>/dev/null" | tee -a $(LOCAL_PATH)/apk-search
 	chmod +x $(LOCAL_PATH)/apk-search
 
