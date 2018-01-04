@@ -20,7 +20,7 @@ openvswitch\"
 endef
 
 define ALPINE_SWAY_PACKAGES
-\"\$$apks sway gdm mutt nano htop wireless-tools mesa mesa-dri-ati \
+\"\$$apks sway gdm mutt nano htop wireless-tools mesa mesa-dri-ati sudo \
 mesa-dri-intel mesa-dri-nouveau lightdm xorg-server-xwayland udev dmenu\"
 endef
 
