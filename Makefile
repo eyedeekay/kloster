@@ -113,6 +113,7 @@ kloster:
 		--arch x86_64 \
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
+		--extra-repository $(mirror)$(branch)/testing \
 		"$$extra_repository" \
 		--profile kloster
 
