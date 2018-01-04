@@ -18,4 +18,4 @@ USER build
 RUN abuild-keygen -i -a
 WORKDIR /home/build/aports/scripts/
 RUN mkdir /home/build/iso
-CMD make kloster
+CMD make kloster && sh

@@ -85,7 +85,7 @@ docker-iso:
 		-w /home/build/aports/scripts/ \
 		--cap-add=SYS_ADMIN \
 		--name alpine-docker-iso \
-		-t alpine-xen-iso make docker-pv
+		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
@@ -94,7 +94,7 @@ docker-registry-iso:
 		--cap-add=SYS_ADMIN \
 		--name alpine-registry-iso \
 		-t alpine-xen-iso \
-		make docker-registry-pv
+		sh -c 'make docker-registry-pv && sh'
 
 darkhttpd-iso:
 	docker rm -f alpine-darkhttpd-iso; \
@@ -103,7 +103,7 @@ darkhttpd-iso:
 		--cap-add=SYS_ADMIN \
 		--name alpine-darkhttpd-iso \
 		-t alpine-xen-iso \
-		make darkhttpd-pv
+		sh -c 'make darkhttpd-pv && sh'
 
 define DOCKER_PV_FILE
 # Alpine Linux PV DomU
@@ -321,7 +321,7 @@ xgo-iso:
 		-w /home/build/aports/scripts/ \
 		--cap-add=SYS_ADMIN \
 		--name alpine-xgo-iso \
-		-t alpine-xen-iso make xgo-pv
+		-t alpine-xen-iso sh -c 'make xgo-pv && sh'
 
 pv-xgo-config:
 	@echo "#! /bin/sh"
