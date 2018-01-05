@@ -143,7 +143,7 @@ copy:
 	docker cp alpine-docker-iso:/home/build/iso/alpine-docker-$(branch)-x86_64.iso ./iso
 	docker cp alpine-registry-iso:/home/build/iso/alpine-registry-$(branch)-x86_64.iso ./iso
 	docker cp alpine-darkhttpd-iso:/home/build/iso/alpine-darkhttpd-$(branch)-x86_64.iso ./iso
-	docker cp alpine-xgo-iso:/home/build/iso/alpine-xgo-$(edge_branch)-x86_64.iso ./iso
+	docker cp alpine-x2go-iso:/home/build/iso/alpine-xgo-$(edge_branch)-x86_64.iso ./iso
 
 
 sum:
