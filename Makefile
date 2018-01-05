@@ -138,13 +138,11 @@ install-search:
 
 copy:
 	rm -rf ./iso && mkdir iso
-	docker cp alpine-xen-iso:/home/build/iso/alpine-kloster-$(branch)-x86_64.iso ./iso; \
-	docker cp alpine-docker-iso:/home/build/iso/alpine-docker-$(branch)-x86_64.iso ./iso; \
-	docker cp alpine-registry-iso:/home/build/iso/alpine-registry-$(branch)-x86_64.iso ./iso; \
-	docker cp alpine-darkhttpd-iso:/home/build/iso/alpine-darkhttpd-$(branch)-x86_64.iso ./iso; \
-	docker cp alpine-xgo-iso:/home/build/iso/alpine-xgo-$(edge_branch)-x86_64.iso ./iso; \
-	true
-
+	docker cp alpine-xen-iso:/home/build/iso/alpine-kloster-$(branch)-x86_64.iso ./iso
+	docker cp alpine-docker-iso:/home/build/iso/alpine-docker-$(branch)-x86_64.iso ./iso
+	docker cp alpine-registry-iso:/home/build/iso/alpine-registry-$(branch)-x86_64.iso ./iso
+	docker cp alpine-darkhttpd-iso:/home/build/iso/alpine-darkhttpd-$(branch)-x86_64.iso ./iso
+	docker cp alpine-xgo-iso:/home/build/iso/alpine-xgo-$(edge_branch)-x86_64.iso ./iso
 
 
 sum:
