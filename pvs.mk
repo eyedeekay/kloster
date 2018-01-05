@@ -316,7 +316,7 @@ pv-darkhttpd-disk:
 
 
 xgo-iso:
-	docker rm -f alpine-xgo-iso; \
+	docker rm -f alpine-x2go-iso; \
 	docker run -d --privileged \
 		-w /home/build/aports/scripts/ \
 		--cap-add=SYS_ADMIN \
