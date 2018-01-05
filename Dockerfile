@@ -4,7 +4,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" | tee -a /etc/apk/r
 RUN apk update && apk upgrade && apk update
 RUN apk add alpine-sdk build-base apk-tools alpine-conf busybox fakeroot syslinux xorriso mtools dosfstools grub-efi make git sudo
 RUN adduser -h /home/build -D build -G abuild
-RUN git clone https://github.com/alpine/aports /home/build/aports
+RUN git clone https://github.com/alpinelinux/aports /home/build/aports
 ADD . /home/build/aports/scripts
 RUN cd /home/build/aports && apk update
 RUN chmod +x /home/build/aports/scripts/*.sh && \
