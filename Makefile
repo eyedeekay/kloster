@@ -65,8 +65,9 @@ rinfo:
 	@echo $(release)
 
 clean:
-	docker rm -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-x2go-iso
-	docker rmi -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-x2go-iso
+
+clobber: clean
+	docker rmi -f alpine-xen-iso
 
 config:
 	@echo "#! /bin/sh"
