@@ -321,7 +321,8 @@ xgo-iso:
 		-w /home/build/aports/scripts/ \
 		--cap-add=SYS_ADMIN \
 		--name alpine-xgo-iso \
-		-t alpine-xen-iso sh -c 'make xgo-pv && sh'
+		-t alpine-xen-iso \
+		sh -c 'make xgo-pv && sh'
 
 pv-xgo-config:
 	@echo "#! /bin/sh"
