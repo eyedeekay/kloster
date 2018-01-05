@@ -66,6 +66,7 @@ rinfo:
 
 clean:
 	docker rm -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-xgo-iso
+	docker rmi -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-xgo-iso
 
 config:
 	@echo "#! /bin/sh"
