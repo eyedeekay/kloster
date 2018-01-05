@@ -65,8 +65,8 @@ rinfo:
 	@echo $(release)
 
 clean:
-	docker rm -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-xgo-iso
-	docker rmi -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-xgo-iso
+	docker rm -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-x2go-iso
+	docker rmi -f alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso alpine-x2go-iso
 
 config:
 	@echo "#! /bin/sh"
@@ -87,6 +87,7 @@ config:
 	@echo "    apks=$(ALPINE_BASE_PACKAGES)"
 	@echo "    apks=$(ALPINE_SWAY_PACKAGES)"
 	@echo "    apks=$(ALPINE_XEN_PACKAGES)"
+	@echo "    apkovl='genapkovl-xen.sh'"
 	@echo "    local _k _a"
 	@echo "    for _k in \$$kernel_flavors; do"
 	@echo "        apks=\"\$$apks linux-\$$_k\""
