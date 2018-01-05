@@ -160,9 +160,9 @@ sum:
 	sha256sum "alpine-darkhttpd-$(branch)-x86_64.iso" > \
 		"alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum" || \
 		rm alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum; \
-	sha256sum "alpine-xgo-$(edge_branch)-x86_64.iso" > \
-		"alpine-xgo-$(edge_branch)-x86_64.iso.sha256sum" || \
-		rm alpine-sgo-$(edge_branch)-x86_64.iso.sha256sum; \
+	sha256sum "alpine-xgo-$(branch)-x86_64.iso" > \
+		"alpine-xgo-$(branch)-x86_64.iso.sha256sum" || \
+		rm alpine-sgo-$(branch)-x86_64.iso.sha256sum; \
 	echo sums computed
 
 sig:
@@ -176,7 +176,7 @@ sig:
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
 		"alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum" ; \
 	gpg --batch --yes --clear-sign -u "$(SIGNING_KEY)" \
-		"alpine-xgo-$(edge_branch)-x86_64.iso.sha256sum" ; \
+		"alpine-xgo-$(branch)-x86_64.iso.sha256sum" ; \
 	echo images signed
 
 torrent:
@@ -244,8 +244,8 @@ torrent:
 		-a "http://bt.careland.com.cn:6969/announce" \
 		-a "http://i.bandito.org/announce" \
 		-a "http://bttrack.9you.com/announce" \
-		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-xgo-$(edge_branch)-x86_64.iso \
-		"alpine-xgo-$(edge_branch)-x86_64.iso"; \
+		-w https://github.com/eyedeekay/kloster/releases/download/$(release)/alpine-xgo-$(branch)-x86_64.iso \
+		"alpine-xgo-$(branch)-x86_64.iso"; \
 	echo torrents created
 
 delrelease:
@@ -314,17 +314,17 @@ upload:
 		--name "alpine-darkhttpd-$(branch)-x86_64.iso" \
 		--file "alpine-darkhttpd-$(branch)-x86_64.iso"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-xgo-$(edge_branch)-x86_64.iso.sha256sum" \
-		--file "alpine-xgo-$(edge_branch)-x86_64.iso.sha256sum"; \
+		--name "alpine-xgo-$(branch)-x86_64.iso.sha256sum" \
+		--file "alpine-xgo-$(branch)-x86_64.iso.sha256sum"; \
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-xgo-$(edge_branch)-x86_64.iso.sha256sum.asc" \
-		--file "alpine-xgo-$(edge_branch)-x86_64.iso.sha256sum.asc";\
+		--name "alpine-xgo-$(branch)-x86_64.iso.sha256sum.asc" \
+		--file "alpine-xgo-$(branch)-x86_64.iso.sha256sum.asc";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-xgo-$(edge_branch)-x86_64.iso.torrent" \
-		--file "alpine-xgo-$(edge_branch)-x86_64.iso.torrent";\
+		--name "alpine-xgo-$(branch)-x86_64.iso.torrent" \
+		--file "alpine-xgo-$(branch)-x86_64.iso.torrent";\
 	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
-		--name "alpine-xgo-$(edge_branch)-x86_64.iso" \
-		--file "alpine-xgo-$(edge_branch)-x86_64.iso"; \
+		--name "alpine-xgo-$(branch)-x86_64.iso" \
+		--file "alpine-xgo-$(branch)-x86_64.iso"; \
 
 
 docker-build:
