@@ -115,7 +115,7 @@ kloster:
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
 		--extra-repository $(mirror)edge/testing \
-		"$$edge_extra_repository" \
+		$$edge_extra_repository \
 		--profile kloster
 
 searchm:

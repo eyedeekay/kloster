@@ -22,7 +22,7 @@ docker-pv:
 		--arch x86_64 \
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
-		"$$edge_extra_repository" \
+		$$edge_extra_repository \
 		--profile docker
 
 pv-docker-registry-config:
@@ -49,7 +49,7 @@ docker-registry-pv:
 		--arch x86_64 \
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
-		"$$edge_extra_repository" \
+		$$edge_extra_repository \
 		--profile registry
 
 pv-darkhttpd-config:
@@ -76,7 +76,7 @@ darkhttpd-pv:
 		--arch x86_64 \
 		--repository       $(mirror)$(branch)/main \
 		--extra-repository $(mirror)$(branch)/community \
-		"$$edge_extra_repository" \
+		$$edge_extra_repository \
 		--profile darkhttpd
 
 docker-iso:
