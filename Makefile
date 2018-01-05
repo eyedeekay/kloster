@@ -80,6 +80,7 @@ config:
 	@echo "}"
 	@echo "profile_kloster(){"
 	@echo "    profile_standard"
+	@echo "    profile_xen"
 	@echo "    kernel_cmdline=\"nomodeset\""
 	@echo "    syslinux_serial=\"0 115200\""
 	@echo "    kernel_addons=\"zfs spl\""
