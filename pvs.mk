@@ -320,7 +320,7 @@ xgo-iso:
 	docker run -d --privileged \
 		-w /home/build/aports/scripts/ \
 		--cap-add=SYS_ADMIN \
-		--name alpine-xgo-iso \
+		--name alpine-x2go-iso \
 		-t alpine-xen-iso \
 		sh -c 'make xgo-pv && sh'
 
