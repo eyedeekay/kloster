@@ -53,10 +53,14 @@ define ALPINE_DARKHTTPD_PACKAGES
 \"\$$apks darkhttpd\"
 endef
 
+dummy:
+	make list | less
+
 list:
+	@echo "Available commands"
+	@echo "=================="
 	@echo ""
-	@echo ""
-	@echo ""
+	@grep '^[^#[:space:]].*:' Makefile config.mk pvs.mk includes.mk
 
 pv:
 	@echo "$$ALPINE_PV_FILE"
@@ -65,6 +69,7 @@ rinfo:
 	@echo $(release)
 
 clean:
+	docker rm -f alpine-x2go-iso alpine-darkhttpd-iso alpine-registry-iso alpine-docker-iso alpine-xen-iso
 
 clobber: clean
 	docker rmi -f alpine-xen-iso
@@ -110,6 +115,7 @@ run:
 	docker rm -f alpine-xen-iso; \
 	docker run -d --privileged --cap-add=SYS_ADMIN --name alpine-xen-iso -t alpine-xen-iso
 
+dom0-iso: build run
 
 kloster:
 	sh mkimage.sh --tag $(branch) \
