@@ -272,64 +272,64 @@ release:
 
 upload:
 	cd ./iso; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-kloster-$(branch)-x86_64.iso.sha256sum" \
 		--file "alpine-kloster-$(branch)-x86_64.iso.sha256sum"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-kloster-$(branch)-x86_64.iso.sha256sum.asc" \
 		--file "alpine-kloster-$(branch)-x86_64.iso.sha256sum.asc";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-kloster-$(branch)-x86_64.iso.torrent" \
 		--file "alpine-kloster-$(branch)-x86_64.iso.torrent";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-kloster-$(branch)-x86_64.iso" \
 		--file "alpine-kloster-$(branch)-x86_64.iso"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-docker-$(branch)-x86_64.iso.sha256sum" \
 		--file "alpine-docker-$(branch)-x86_64.iso.sha256sum"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-docker-$(branch)-x86_64.iso.sha256sum.asc" \
 		--file "alpine-docker-$(branch)-x86_64.iso.sha256sum.asc";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-docker-$(branch)-x86_64.iso.torrent" \
 		--file "alpine-docker-$(branch)-x86_64.iso.torrent";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-docker-$(branch)-x86_64.iso" \
 		--file "alpine-docker-$(branch)-x86_64.iso"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-registry-$(branch)-x86_64.iso.sha256sum" \
 		--file "alpine-registry-$(branch)-x86_64.iso.sha256sum"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-registry-$(branch)-x86_64.iso.sha256sum.asc" \
 		--file "alpine-registry-$(branch)-x86_64.iso.sha256sum.asc";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-registry-$(branch)-x86_64.iso.torrent" \
 		--file "alpine-registry-$(branch)-x86_64.iso.torrent";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-registry-$(branch)-x86_64.iso" \
 		--file "alpine-registry-$(branch)-x86_64.iso"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum" \
 		--file "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum.asc" \
 		--file "alpine-darkhttpd-$(branch)-x86_64.iso.sha256sum.asc";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-darkhttpd-$(branch)-x86_64.iso.torrent" \
 		--file "alpine-darkhttpd-$(branch)-x86_64.iso.torrent";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-darkhttpd-$(branch)-x86_64.iso" \
 		--file "alpine-darkhttpd-$(branch)-x86_64.iso"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-xgo-$(branch)-x86_64.iso.sha256sum" \
 		--file "alpine-xgo-$(branch)-x86_64.iso.sha256sum"; \
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-xgo-$(branch)-x86_64.iso.sha256sum.asc" \
 		--file "alpine-xgo-$(branch)-x86_64.iso.sha256sum.asc";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-xgo-$(branch)-x86_64.iso.torrent" \
 		--file "alpine-xgo-$(branch)-x86_64.iso.torrent";\
-	$(GITHUB_RELEASE_PATH) upload --user eyedeekay --repo kloster --tag $(release) \
+	$(GITHUB_RELEASE_PATH) upload --replace --user eyedeekay --repo kloster --tag $(release) \
 		--name "alpine-xgo-$(branch)-x86_64.iso" \
 		--file "alpine-xgo-$(branch)-x86_64.iso"; \
 
