@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.7
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" | tee -a /etc/apk/repositories
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" | tee -a /etc/apk/repositories
 RUN apk update && apk upgrade && apk update
