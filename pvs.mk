@@ -123,36 +123,13 @@ disk = [
 vif = ['bridge=br0']
 
 # DomU settings
-memory = $(low_mem)
+memory = $(high_mem)
 name = "docker"
-vcpus = 1
-maxvcpus = 1
+vcpus = 3
+maxvcpus = 3
 endef
 
 export DOCKER_PV_FILE
-
-define DOCKER_PV_FILE_STAGE
-# Alpine Linux PV DomU
-
-# Kernel paths for install
-kernel = "/usr/lib/xen/boot/pv-grub-x86_64.gz"
-
-# Path to HDD and iso file
-disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/docker.img'
-       ]
-
-# Network configuration
-vif = ['bridge=br0']
-
-# DomU settings
-memory = $(low_mem)
-name = "docker"
-vcpus = 1
-maxvcpus = 1
-endef
-
-export DOCKER_PV_FILE_STAGE
 
 define DOCKER_GRUB
 default 0
@@ -201,29 +178,6 @@ endef
 
 export REGISTRY_PV_FILE
 
-define REGISTRY_PV_FILE_STAGE
-# Alpine Linux PV DomU
-
-# Kernel paths for install
-kernel = "/usr/lib/xen/boot/pv-grub-x86_64.gz"
-
-# Path to HDD and iso file
-disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/registry.img'
-       ]
-
-# Network configuration
-vif = ['bridge=br0']
-
-# DomU settings
-memory = $(low_mem)
-name = "registry"
-vcpus = 1
-maxvcpus = 1
-endef
-
-export REGISTRY_PV_FILE_STAGE
-
 define REGISTRY_GRUB
 default 0
 timeout 5
@@ -269,29 +223,6 @@ maxvcpus = 1
 endef
 
 export DARKHTTPD_PV_FILE
-
-define DARKHTTPD_PV_FILE_STAGE
-# Alpine Linux PV DomU
-
-# Kernel paths for install
-kernel = "/usr/lib/xen/boot/pv-grub-x86_64.gz"
-
-# Path to HDD and iso file
-disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/darkhttpd.img'
-       ]
-
-# Network configuration
-vif = ['bridge=br0']
-
-# DomU settings
-memory = $(low_mem)
-name = "darkhttpd"
-vcpus = 1
-maxvcpus = 1
-endef
-
-export DARKHTTPD_PV_FILE_STAGE
 
 define DARKHTTPD_GRUB
 default 0
@@ -371,34 +302,11 @@ vif = ['bridge=br0']
 # DomU settings
 memory = $(high_mem)
 name = "xgo"
-vcpus = 1
-maxvcpus = 1
+vcpus = 3
+maxvcpus = 3
 endef
 
 export XGO_PV_FILE
-
-define XGO_PV_FILE_STAGE
-# Alpine Linux PV DomU
-
-# Kernel paths for install
-kernel = "/usr/lib/xen/boot/pv-grub-x86_64.gz"
-
-# Path to HDD and iso file
-disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/xgo.img'
-       ]
-
-# Network configuration
-vif = ['bridge=br0']
-
-# DomU settings
-memory = $(high_mem)
-name = "xgo"
-vcpus = 1
-maxvcpus = 1
-endef
-
-export XGO_PV_FILE_STAGE
 
 define XGO_GRUB
 default 0
@@ -420,3 +328,5 @@ pv-xgo-disk:
 	sudo -E mount -t iso9660 -o loop iso/alpine-xgo-$(branch)-x86_64.iso iso/xgo
 	dd if=/dev/zero of=iso/xgo.img bs=1M count=10000
 	make pv-xgo-file
+
+pv-files: pv-darkhttpd-file pv-docker-file pv-registry-file pv-xgo-file
