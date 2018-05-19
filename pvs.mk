@@ -108,15 +108,12 @@ darkhttpd-iso:
 define DOCKER_PV_FILE
 # Alpine Linux PV DomU
 
-# Kernel paths for install
-kernel = "iso/docker/boot/vmlinuz-virtgrsec"
-ramdisk = "iso/docker/boot/initramfs-virtgrsec"
-extra="modules=loop,squashfs console=hvc0"
+$(INSTALL_KERNEL)
 
 # Path to HDD and iso file
 disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/docker.img',
-        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=iso/alpine-docker-$(branch)-x86_64.iso'
+        'format=raw, vdev=xvda, access=w, target=$(HDD_PATH)/docker.img',
+        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=$(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso'
        ]
 
 # Network configuration
@@ -144,26 +141,30 @@ endef
 export DOCKER_GRUB
 
 pv-docker-file:
-	@echo "$$DOCKER_PV_FILE" | tee docker.cfg
+	@echo "$$DOCKER_PV_FILE" | tee docker/docker.install.cfg
+
+pv-docker-booted-file:
+	echo "$$DOCKER_PV_FILE" | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
+		tee docker/docker.cfg
 
 pv-docker-disk:
-	rm -rf iso/docker; mkdir -p iso/docker
-	sudo -E mount -t iso9660 -o loop iso/alpine-docker-$(branch)-x86_64.iso iso/docker
-	dd if=/dev/zero of=iso/docker.img bs=1M count=3000
+	rm -rf $(HDD_PATH)/docker; mkdir -p $(HDD_PATH)/docker
+	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/docker
+	dd if=/dev/zero of=$(HDD_PATH)/docker.img bs=1M count=$(TWOHUNDREDGB)
 	make pv-docker-file
 
 define REGISTRY_PV_FILE
 # Alpine Linux PV DomU
 
-# Kernel paths for install
-kernel = "iso/registry/boot/vmlinuz-virtgrsec"
-ramdisk = "iso/registry/boot/initramfs-virtgrsec"
-extra="modules=loop,squashfs console=hvc0"
+$(INSTALL_KERNEL)
 
 # Path to HDD and iso file
 disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/registry.img',
-        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=iso/alpine-registry-$(branch)-x86_64.iso'
+        'format=raw, vdev=xvda, access=w, target=$(HDD_PATH)/registry.img',
+        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=$(HDD_PATH)/alpine-registry-$(branch)-x86_64.iso'
        ]
 
 # Network configuration
@@ -191,25 +192,29 @@ endef
 export REGISTRY_GRUB
 
 pv-registry-file:
-	@echo "$$REGISTRY_PV_FILE" | tee registry.cfg
+	@echo "$$REGISTRY_PV_FILE" | tee registry/registry.install.cfg
+
+pv-registry-booted-file:
+	echo "$$REGISTRY_PV_FILE" | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
+		tee registry/registry.cfg
 
 pv-registry-disk:
-	rm -rf iso/registry; mkdir -p iso/registry
-	sudo -E mount -t iso9660 -o loop iso/alpine-registry-$(branch)-x86_64.iso iso/registry
-	dd if=/dev/zero of=iso/registry.img bs=1M count=3000
+	rm -rf $(HDD_PATH)/registry; mkdir -p $(HDD_PATH)/registry
+	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-registry-$(branch)-x86_64.iso $(HDD_PATH)/registry
+	dd if=/dev/zero of=$(HDD_PATH)/registry.img bs=1M count=$(THREEGB)
 
 define DARKHTTPD_PV_FILE
 # Alpine Linux PV DomU
 
-# Kernel paths for install
-kernel = "iso/darkhttpd/boot/vmlinuz-virtgrsec"
-ramdisk = "iso/darkhttpd/boot/initramfs-virtgrsec"
-extra="modules=loop,squashfs console=hvc0"
+$(INSTALL_KERNEL)
 
 # Path to HDD and iso file
 disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/darkhttpd.img',
-        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=iso/alpine-darkhttpd-$(branch)-x86_64.iso'
+        'format=raw, vdev=xvda, access=w, target=$(HDD_PATH)/darkhttpd.img',
+        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=$(HDD_PATH)/alpine-darkhttpd-$(branch)-x86_64.iso'
        ]
 
 # Network configuration
@@ -237,12 +242,19 @@ endef
 export DARKHTTPD_GRUB
 
 pv-darkhttpd-file:
-	@echo "$$DARKHTTPD_PV_FILE" | tee darkhttpd.cfg
+	@echo "$$DARKHTTPD_PV_FILE" | tee darkhttpd/darkhttpd.install.cfg
+
+pv-darkhttpd-booted-file:
+	echo "$$DARKHTTPD_PV_FILE" | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
+		tee darkhttpd/darkhttpd.cfg
 
 pv-darkhttpd-disk:
-	rm -rf iso/dockerhttpd; mkdir -p iso/darkhttpd
-	sudo -E mount -t iso9660 -o loop iso/alpine-darkhttpd-$(branch)-x86_64.iso iso/darkhttpd
-	dd if=/dev/zero of=iso/darkhttpd.img bs=1M count=3000
+	rm -rf $(HDD_PATH)/dockerhttpd; mkdir -p $(HDD_PATH)/darkhttpd
+	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-darkhttpd-$(branch)-x86_64.iso $(HDD_PATH)/darkhttpd
+	dd if=/dev/zero of=$(HDD_PATH)/darkhttpd.img bs=1M count=$(THREEGB)
 	make pv-darkhttpd-file
 
 
@@ -285,15 +297,12 @@ xgo-pv:
 define XGO_PV_FILE
 # Alpine Linux PV DomU
 
-# Kernel paths for install
-kernel = "iso/xgo/boot/vmlinuz-virtgrsec"
-ramdisk = "iso/xgo/boot/initramfs-virtgrsec"
-extra="modules=loop,squashfs console=hvc0"
+$(INSTALL_KERNEL)
 
 # Path to HDD and iso file
 disk = [
-        'format=raw, vdev=xvda, access=w, target=iso/xgo.img',
-        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=iso/alpine-xgo-$(branch)-x86_64.iso'
+        'format=raw, vdev=xvda, access=w, target=$(HDD_PATH)/xgo.img',
+        'format=raw, vdev=xvdc, access=r, devtype=cdrom, target=$(HDD_PATH)/alpine-xgo-$(branch)-x86_64.iso'
        ]
 
 # Network configuration
@@ -321,12 +330,49 @@ endef
 export XGO_GRUB
 
 pv-xgo-file:
-	@echo "$$XGO_PV_FILE" | tee xgo.cfg
+	@echo "$$XGO_PV_FILE" | tee x2go/xgo.install.cfg
+
+pv-xgo-booted-file:
+	echo "$$XGO_PV_FILE" | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
+		tee x2go/xgo.cfg
+
 
 pv-xgo-disk:
-	rm -rf iso/xgo; mkdir -p iso/xgo
-	sudo -E mount -t iso9660 -o loop iso/alpine-xgo-$(branch)-x86_64.iso iso/xgo
-	dd if=/dev/zero of=iso/xgo.img bs=1M count=10000
+	rm -rf $(HDD_PATH)/xgo; mkdir -p $(HDD_PATH)/xgo
+	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-xgo-$(branch)-x86_64.iso $(HDD_PATH)/xgo
+	dd if=/dev/zero of=$(HDD_PATH)/xgo.img bs=1M count=$(TENGB)
 	make pv-xgo-file
 
-pv-files: pv-darkhttpd-file pv-docker-file pv-registry-file pv-xgo-file
+pv-files: pv-install-files pv-installed-files
+
+pv-install-files: pv-darkhttpd-file pv-docker-file pv-registry-file pv-xgo-file
+
+pv-installed-files: pv-darkhttpd-booted-file pv-docker-booted-file pv-registry-booted-file pv-xgo-booted-file
+
+define INSTALL_KERNEL
+# Kernel paths for install
+kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"
+ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"
+extra = "modules=loop,squashfs console=hvc0"
+endef
+
+export INSTALL_KERNEL
+
+HDD_PATH=/media/disk
+
+TWOGB=2000
+
+THREEGB=3000
+
+TENGB=10000
+
+TWENTYGB=20000
+
+THIRTYGB=30000
+
+TWOHUNDREDGB=200000
+
+THREEHUNDREDGB=300000
