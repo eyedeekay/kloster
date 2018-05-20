@@ -109,7 +109,7 @@ include config.mk
 include edgeonly.mk
 
 build:
-	docker build --force-rm --no-cache -f Dockerfile -t alpine-xen-iso .
+	docker build --force-rm -f Dockerfile -t alpine-xen-iso .
 
 run:
 	docker rm -f alpine-xen-iso; \
