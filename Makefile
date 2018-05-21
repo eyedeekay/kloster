@@ -358,3 +358,9 @@ rerelease:
 docker-release:
 	make docker-build; sleep 1h; make copy
 	make rerelease
+
+install:
+	cp darkhttpd/*.cfg /etc/xen
+	cp docker/*.cfg /etc/xen
+	cp registry/*.cfg /etc/xen
+	cp x2go/*.cfg /etc/xen
