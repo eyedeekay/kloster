@@ -346,14 +346,7 @@ compile:
 	make xgo-iso; \
 	true
 
-rerelease:
-	make copy
-	make delrelease
-	make sum
-	make sig
-	make torrent
-	make release
-	make upload
+rerelease: copy delrelease sum sig torrent release upload
 
 docker-release:
 	make docker-build; sleep 1h; make copy

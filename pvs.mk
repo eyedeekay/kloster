@@ -99,6 +99,9 @@ docker-registry-iso:
 		-t alpine-xen-iso \
 		sh -c 'make docker-registry-pv && sh'
 
+registry-xl-create:
+	xl create /etc/xen/registry.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
+
 darkhttpd-iso:
 	docker rm -f alpine-darkhttpd-iso; \
 	docker run -d --privileged \
@@ -107,6 +110,9 @@ darkhttpd-iso:
 		--name alpine-darkhttpd-iso \
 		-t alpine-xen-iso \
 		sh -c 'make darkhttpd-pv && sh'
+
+darkhttpd-xl-create:
+	xl create /etc/xen/darkhttpd.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 define DOCKER_PV_FILE
 # Alpine Linux PV DomU
@@ -267,6 +273,9 @@ xgo-iso:
 		-t alpine-xen-iso \
 		sh -c 'make xgo-pv && sh'
 
+xgo-xl-create:
+	xl create /etc/xen/xgo.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
+
 pv-xgo-config:
 	@echo "#! /bin/sh"
 	@echo "#export PROFILENAME=xgo"
@@ -371,6 +380,14 @@ TENGB=10000
 TWENTYGB=20000
 
 THIRTYGB=30000
+
+FIFTYGB=30000
+
+SIXTYGB=30000
+
+ONEHUNDREDGB=100000
+
+ONEHUNDREDFIFTYGB=150000
 
 TWOHUNDREDGB=200000
 
