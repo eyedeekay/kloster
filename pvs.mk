@@ -155,7 +155,7 @@ pv-docker-booted-file:
 
 pv-docker-disk:
 	rm -rf $(HDD_PATH)/docker; mkdir -p $(HDD_PATH)/docker
-	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/docker
+	#sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/docker
 	dd if=/dev/zero of=$(HDD_PATH)/docker.img bs=1M count=$(TWOHUNDREDGB)
 	make pv-docker-file
 
@@ -206,7 +206,7 @@ pv-registry-booted-file:
 
 pv-registry-disk:
 	rm -rf $(HDD_PATH)/registry; mkdir -p $(HDD_PATH)/registry
-	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-registry-$(branch)-x86_64.iso $(HDD_PATH)/registry
+	##sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-registry-$(branch)-x86_64.iso $(HDD_PATH)/registry
 	dd if=/dev/zero of=$(HDD_PATH)/registry.img bs=1M count=$(THREEGB)
 
 define DARKHTTPD_PV_FILE
@@ -256,7 +256,7 @@ pv-darkhttpd-booted-file:
 
 pv-darkhttpd-disk:
 	rm -rf $(HDD_PATH)/dockerhttpd; mkdir -p $(HDD_PATH)/darkhttpd
-	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-darkhttpd-$(branch)-x86_64.iso $(HDD_PATH)/darkhttpd
+	#sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-darkhttpd-$(branch)-x86_64.iso $(HDD_PATH)/darkhttpd
 	dd if=/dev/zero of=$(HDD_PATH)/darkhttpd.img bs=1M count=$(THREEGB)
 	make pv-darkhttpd-file
 
@@ -345,7 +345,7 @@ pv-xgo-booted-file:
 
 pv-xgo-disk:
 	rm -rf $(HDD_PATH)/xgo; mkdir -p $(HDD_PATH)/xgo
-	sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-xgo-$(branch)-x86_64.iso $(HDD_PATH)/xgo
+	#sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-xgo-$(branch)-x86_64.iso $(HDD_PATH)/xgo
 	dd if=/dev/zero of=$(HDD_PATH)/xgo.img bs=1M count=$(TENGB)
 	make pv-xgo-file
 
