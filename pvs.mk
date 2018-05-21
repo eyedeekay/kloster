@@ -155,9 +155,8 @@ pv-docker-booted-file:
 
 pv-docker-disk:
 	rm -rf $(HDD_PATH)/docker; mkdir -p $(HDD_PATH)/docker
-	#sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/docker
 	dd if=/dev/zero of=$(HDD_PATH)/docker.img bs=1M count=$(TWOHUNDREDGB)
-	make pv-docker-file
+	make pv-docker-file pv-docker-booted-file
 
 define REGISTRY_PV_FILE
 # Alpine Linux PV DomU
@@ -206,8 +205,8 @@ pv-registry-booted-file:
 
 pv-registry-disk:
 	rm -rf $(HDD_PATH)/registry; mkdir -p $(HDD_PATH)/registry
-	##sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-registry-$(branch)-x86_64.iso $(HDD_PATH)/registry
 	dd if=/dev/zero of=$(HDD_PATH)/registry.img bs=1M count=$(THREEGB)
+	make pv-registry-file pv-registry-booted-file
 
 define DARKHTTPD_PV_FILE
 # Alpine Linux PV DomU
@@ -256,10 +255,8 @@ pv-darkhttpd-booted-file:
 
 pv-darkhttpd-disk:
 	rm -rf $(HDD_PATH)/dockerhttpd; mkdir -p $(HDD_PATH)/darkhttpd
-	#sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-darkhttpd-$(branch)-x86_64.iso $(HDD_PATH)/darkhttpd
 	dd if=/dev/zero of=$(HDD_PATH)/darkhttpd.img bs=1M count=$(THREEGB)
-	make pv-darkhttpd-file
-
+	make pv-darkhttpd-file pv-darkhttpd-booted-file
 
 xgo-iso:
 	docker rm -f alpine-x2go-iso; \
@@ -345,9 +342,8 @@ pv-xgo-booted-file:
 
 pv-xgo-disk:
 	rm -rf $(HDD_PATH)/xgo; mkdir -p $(HDD_PATH)/xgo
-	#sudo -E mount -t iso9660 -o loop $(HDD_PATH)/alpine-xgo-$(branch)-x86_64.iso $(HDD_PATH)/xgo
 	dd if=/dev/zero of=$(HDD_PATH)/xgo.img bs=1M count=$(TENGB)
-	make pv-xgo-file
+	make pv-xgo-file pv-xgo-booted-file
 
 pv-files: pv-install-files pv-installed-files
 

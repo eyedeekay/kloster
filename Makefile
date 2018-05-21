@@ -359,6 +359,12 @@ docker-release:
 	make docker-build; sleep 1h; make copy
 	make rerelease
 
+wget:
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-xgo-v3.7-x86_64.iso
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-registry-v3.7-x86_64.iso
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-docker-v3.7-x86_64.iso
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-darkhttpd-v3.7-x86_64.iso
+
 install:
 	cp darkhttpd/*.cfg /etc/xen
 	cp docker/*.cfg /etc/xen
