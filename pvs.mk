@@ -87,8 +87,8 @@ docker-iso:
 		--name alpine-docker-iso \
 		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
-docker-sysinstall:
-	xl create /etc/xen/docker.install.cfg -c alpine-setup
+docker-xl-create:
+	xl create /etc/xen/docker.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
