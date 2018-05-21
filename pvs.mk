@@ -145,8 +145,8 @@ timeout 5
 
 title alpine-docker-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virtgrsec modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virtgrsec
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export DOCKER_GRUB
@@ -156,8 +156,8 @@ pv-docker-file:
 
 pv-docker-booted-file:
 	echo "$$DOCKER_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee docker/docker.cfg
 
@@ -195,8 +195,8 @@ timeout 5
 
 title alpine-registry-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virtgrsec modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virtgrsec
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export REGISTRY_GRUB
@@ -206,8 +206,8 @@ pv-registry-file:
 
 pv-registry-booted-file:
 	echo "$$REGISTRY_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee registry/registry.cfg
 
@@ -245,8 +245,8 @@ timeout 5
 
 title alpine-darkhttpd-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virtgrsec modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virtgrsec
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export DARKHTTPD_GRUB
@@ -256,8 +256,8 @@ pv-darkhttpd-file:
 
 pv-darkhttpd-booted-file:
 	echo "$$DARKHTTPD_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee darkhttpd/darkhttpd.cfg
 
@@ -334,8 +334,8 @@ timeout 5
 
 title alpine-xgo-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virtgrsec modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virtgrsec
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export XGO_GRUB
@@ -345,8 +345,8 @@ pv-xgo-file:
 
 pv-xgo-booted-file:
 	echo "$$XGO_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee x2go/xgo.cfg
 
@@ -363,8 +363,8 @@ pv-installed-files: pv-darkhttpd-booted-file pv-docker-booted-file pv-registry-b
 
 define INSTALL_KERNEL
 # Kernel paths for install
-kernel = "$(HDD_PATH)/disk/boot/vmlinuz-virtgrsec"
-ramdisk = "$(HDD_PATH)/disk/boot/initramfs-virtgrsec"
+kernel = "$(HDD_PATH)/disk/boot/vmlinuz-hardened"
+ramdisk = "$(HDD_PATH)/disk/boot/initramfs-hardened"
 extra = "modules=loop,squashfs console=hvc0"
 endef
 
@@ -394,7 +394,7 @@ TWOHUNDREDGB=200000
 
 THREEHUNDREDGB=300000
 
-bootdir=$(HDD_PATH)/disk/boot/
+bootdir=$(HDD_PATH)/boot/
 
 directory:
 	mkdir -p $(bootdir)
