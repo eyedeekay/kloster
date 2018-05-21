@@ -88,7 +88,7 @@ docker-iso:
 		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
 docker-xl-create: directory
-	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
+	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/; true
 	xl create /etc/xen/docker.install.cfg -c 'setup-alpine -q'
 	umount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
 
