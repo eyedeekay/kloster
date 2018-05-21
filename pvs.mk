@@ -89,7 +89,7 @@ docker-iso:
 
 docker-xl-create: directory
 	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/; true
-	xl create /etc/xen/docker.install.cfg -c 'setup-alpine -q'
+	xl create /etc/xen/docker.install.cfg -c
 	umount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
 
 docker-registry-iso:
@@ -276,7 +276,7 @@ xgo-iso:
 		sh -c 'make xgo-pv && sh'
 
 xgo-xl-create:
-	xl create /etc/xen/xgo.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
+	xl create /etc/xen/xgo.install.cfg -c
 
 pv-xgo-config:
 	@echo "#! /bin/sh"
