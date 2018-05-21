@@ -87,7 +87,7 @@ docker-iso:
 		--name alpine-docker-iso \
 		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
-docker-xl-create: bootdir
+docker-xl-create: directory
 	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
 	xl create /etc/xen/docker.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 	umount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
@@ -395,3 +395,6 @@ TWOHUNDREDGB=200000
 THREEHUNDREDGB=300000
 
 bootdir=$(HDD_PATH)/disk/boot/
+
+directory:
+	mkdir -p bootdir
