@@ -89,7 +89,7 @@ docker-iso:
 
 docker-xl-create: directory
 	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
-	xl create /etc/xen/docker.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine -q'
+	xl create /etc/xen/docker.install.cfg -c 'setup-alpine -q'
 	umount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
 
 docker-registry-iso:
