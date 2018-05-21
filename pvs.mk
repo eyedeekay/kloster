@@ -397,4 +397,4 @@ THREEHUNDREDGB=300000
 bootdir=$(HDD_PATH)/disk/boot/
 
 directory:
-	mkdir -p bootdir
+	mkdir -p $(bootdir)
