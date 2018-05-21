@@ -88,6 +88,7 @@ docker-iso:
 		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
 docker-xl-create:
+	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/initramfs-virtgrsec
 	xl create /etc/xen/docker.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 docker-registry-iso:
@@ -348,7 +349,6 @@ pv-xgo-booted-file:
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee x2go/xgo.cfg
 
-
 pv-xgo-disk:
 	rm -rf $(HDD_PATH)/xgo; mkdir -p $(HDD_PATH)/xgo
 	dd if=/dev/zero of=$(HDD_PATH)/xgo.img bs=1M count=$(TENGB)
@@ -362,8 +362,8 @@ pv-installed-files: pv-darkhttpd-booted-file pv-docker-booted-file pv-registry-b
 
 define INSTALL_KERNEL
 # Kernel paths for install
-kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virtgrsec"
-ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virtgrsec"
+kernel = "$(HDD_PATH)/disk/boot/vmlinuz-virtgrsec"
+ramdisk = "$(HDD_PATH)/disk/boot/initramfs-virtgrsec"
 extra = "modules=loop,squashfs console=hvc0"
 endef
 

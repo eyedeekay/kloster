@@ -353,10 +353,10 @@ docker-release:
 	make rerelease
 
 wget:
-	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-xgo-v3.7-x86_64.iso
-	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-registry-v3.7-x86_64.iso
-	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-docker-v3.7-x86_64.iso
-	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-darkhttpd-v3.7-x86_64.iso
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-xgo-v3.7-x86_64.iso; true
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-registry-v3.7-x86_64.iso; true
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-docker-v3.7-x86_64.iso; true
+	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-darkhttpd-v3.7-x86_64.iso; true
 
 install: wget pv-files
 	cp darkhttpd/*.cfg /etc/xen
