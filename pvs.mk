@@ -88,9 +88,9 @@ docker-iso:
 		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
 docker-xl-create: directory
-	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/; true
+	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
 	xl create /etc/xen/docker.install.cfg -c
-	umount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/disk/boot/
+	umount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/boot/
 
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
@@ -363,8 +363,8 @@ pv-installed-files: pv-darkhttpd-booted-file pv-docker-booted-file pv-registry-b
 
 define INSTALL_KERNEL
 # Kernel paths for install
-kernel = "$(HDD_PATH)/disk/boot/vmlinuz-hardened"
-ramdisk = "$(HDD_PATH)/disk/boot/initramfs-hardened"
+kernel = "$(HDD_PATH)/boot/boot/vmlinuz-hardened"
+ramdisk = "$(HDD_PATH)/boot/boot/initramfs-hardened"
 extra = "modules=loop,squashfs console=hvc0"
 endef
 
