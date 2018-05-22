@@ -143,8 +143,8 @@ timeout 5
 
 title alpine-docker-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-hardened
+	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-virthardened
 endef
 
 export DOCKER_GRUB
@@ -154,8 +154,8 @@ pv-docker-file:
 
 pv-docker-booted-file:
 	echo "$$DOCKER_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee docker/docker.cfg
 
@@ -193,8 +193,8 @@ timeout 5
 
 title alpine-registry-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-hardened
+	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-virthardened
 endef
 
 export REGISTRY_GRUB
@@ -204,8 +204,8 @@ pv-registry-file:
 
 pv-registry-booted-file:
 	echo "$$REGISTRY_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee registry/registry.cfg
 
@@ -243,8 +243,8 @@ timeout 5
 
 title alpine-darkhttpd-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-hardened
+	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-virthardened
 endef
 
 export DARKHTTPD_GRUB
@@ -254,8 +254,8 @@ pv-darkhttpd-file:
 
 pv-darkhttpd-booted-file:
 	echo "$$DARKHTTPD_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee darkhttpd/darkhttpd.cfg
 
@@ -332,8 +332,8 @@ timeout 5
 
 title alpine-xgo-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-hardened
+	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-virthardened
 endef
 
 export XGO_GRUB
@@ -343,8 +343,8 @@ pv-xgo-file:
 
 pv-xgo-booted-file:
 	echo "$$XGO_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-hardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-hardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee x2go/xgo.cfg
 
@@ -361,8 +361,8 @@ pv-installed-files: pv-darkhttpd-booted-file pv-docker-booted-file pv-registry-b
 
 define INSTALL_KERNEL
 # Kernel paths for install
-kernel = "$(HDD_PATH)/boot/boot/vmlinuz-hardened"
-ramdisk = "$(HDD_PATH)/boot/boot/initramfs-hardened"
+kernel = "$(HDD_PATH)/boot/boot/vmlinuz-virthardened"
+ramdisk = "$(HDD_PATH)/boot/boot/initramfs-virthardened"
 extra = "modules=loop,squashfs console=hvc0"
 endef
 
