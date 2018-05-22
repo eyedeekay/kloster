@@ -87,9 +87,6 @@ docker-iso:
 		--name alpine-docker-iso \
 		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
-docker-xl-create: directory mount
-	xl create /etc/xen/docker.install.cfg -c
-
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
 	docker run -d --privileged \
@@ -99,9 +96,6 @@ docker-registry-iso:
 		-t alpine-xen-iso \
 		sh -c 'make docker-registry-pv && sh'
 
-registry-xl-create: directory mount
-	xl create /etc/xen/registry.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
-
 darkhttpd-iso:
 	docker rm -f alpine-darkhttpd-iso; \
 	docker run -d --privileged \
@@ -110,9 +104,6 @@ darkhttpd-iso:
 		--name alpine-darkhttpd-iso \
 		-t alpine-xen-iso \
 		sh -c 'make darkhttpd-pv && sh'
-
-darkhttpd-xl-create: directory mount
-	xl create /etc/xen/darkhttpd.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 define DOCKER_PV_FILE
 # Alpine Linux PV DomU
@@ -154,8 +145,8 @@ pv-docker-file:
 
 pv-docker-booted-file:
 	echo "$$DOCKER_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee docker/docker.cfg
 
@@ -204,8 +195,8 @@ pv-registry-file:
 
 pv-registry-booted-file:
 	echo "$$REGISTRY_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee registry/registry.cfg
 
@@ -254,8 +245,8 @@ pv-darkhttpd-file:
 
 pv-darkhttpd-booted-file:
 	echo "$$DARKHTTPD_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee darkhttpd/darkhttpd.cfg
 
@@ -272,9 +263,6 @@ xgo-iso:
 		--name alpine-x2go-iso \
 		-t alpine-xen-iso \
 		sh -c 'make xgo-pv && sh'
-
-xgo-xl-create: directory mount
-	xl create /etc/xen/xgo.install.cfg -c
 
 pv-xgo-config:
 	@echo "#! /bin/sh"
@@ -343,8 +331,8 @@ pv-xgo-file:
 
 pv-xgo-booted-file:
 	echo "$$XGO_PV_FILE" | \
-		sed 's|kernel = "$(HDD_PATH)/docker/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
-		sed 's|ramdisk = "$(HDD_PATH)/docker/boot/initramfs-virthardened"||g' | \
+		sed 's|kernel = "$(HDD_PATH)/boot/vmlinuz-virthardened"|kernel = \"/usr/lib/xen/boot/pv-grub-x86_64.gz\"|g' | \
+		sed 's|ramdisk = "$(HDD_PATH)/boot/initramfs-virthardened"||g' | \
 		sed 's|extra = "modules=loop,squashfs console=hvc0"||g' | \
 		tee x2go/xgo.cfg
 
