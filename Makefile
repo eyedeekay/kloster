@@ -16,11 +16,11 @@ define ALPINE_BASE_PACKAGES
 cciss_vol_status lvm2 mdadm mkinitfs mtools nfs-utils \
 parted rsync sfdisk syslinux unrar util-linux xfsprogs \
 dosfstools ntfs-3g ethtool multipath-tools linux-firmware \
-openvswitch paxctl\"
+openvswitch paxctl nano\"
 endef
 
 define ALPINE_SWAY_PACKAGES
-\"\$$apks sway mutt nano htop wireless-tools mesa mesa-dri-ati mesa-dri-intel \
+\"\$$apks sway mutt htop wireless-tools mesa mesa-dri-ati mesa-dri-intel \
 mesa-dri-nouveau xorg-server-xwayland xf86-input-libinput xf86-input-synaptics \
 xf86-input-keyboard xf86-input-mouse xf86-input-evdev udev sudo st wayland \
 weston-xwayland weston-shell-desktop\"

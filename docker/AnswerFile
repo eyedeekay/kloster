@@ -13,7 +13,7 @@ INTERFACESOPTS="auto lo
 iface lo inet loopback
 
 auto eth0
-iface eth0 inet dhcp
+iface eth0 inet static
     hostname docker
     address 192.168.1.53
     netmask 255.255.255.0
@@ -23,14 +23,14 @@ iface eth0 inet dhcp
 # Search domain of example.com, Google public nameserver
 DNSOPTS="-d xen 66.70.211.246"
 
-# Set timezone to UTC
-TIMEZONEOPTS="-z UTC"
+# Set timezone to EST
+TIMEZONEOPTS="-z EST"
 
 # set http/ftp proxy
-PROXYOPTS="http://webproxy:8080"
+PROXYOPTS="none"
 
 # Add a random mirror
-APKREPOSOPTS="-r"
+APKREPOSOPTS="-f"
 
 # Install Openssh
 SSHDOPTS="-c openssh"
