@@ -364,7 +364,6 @@ install: wget pv-files
 	cp docker/*.cfg /etc/xen
 	cp registry/*.cfg /etc/xen
 	cp x2go/*.cfg /etc/xen
-	cp *.iso /media/disk
 
 autostart-docker:
 	cp /etc/xen/docker.cfg /etc/xen/auto
