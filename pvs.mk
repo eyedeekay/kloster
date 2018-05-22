@@ -400,4 +400,4 @@ directory:
 	mkdir -p $(bootdir)
 
 mount:
-	mount $(HDD_PATH)/alpine-virt-$(branch).0-x86_64.iso $(HDD_PATH)/boot/; true
+	mount $(HDD_PATH)/alpine-virt-3.7.0-x86_64.iso $(HDD_PATH)/boot/; true
