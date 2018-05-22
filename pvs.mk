@@ -152,7 +152,7 @@ pv-docker-booted-file:
 
 pv-docker-disk:
 	rm -rf $(HDD_PATH)/docker; mkdir -p $(HDD_PATH)/docker
-	dd if=/dev/zero of=$(HDD_PATH)/docker.img bs=1M count=$(TWOHUNDREDGB)
+	dd if=/dev/zero of=$(HDD_PATH)/docker.img bs=1M count=$(ONEHUNDREDGB)
 	make pv-docker-file pv-docker-booted-file
 
 define REGISTRY_PV_FILE
