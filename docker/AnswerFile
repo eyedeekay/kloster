@@ -1,4 +1,4 @@
-Answer file AnswerFile has been created.  Please add or remove options as desired in that file
+# Answer file AnswerFile has been created.  Please add or remove options as desired in that file
 # Example answer file for setup-alpine script
 # If you don't want to use a certain option, then comment it out
 
@@ -15,13 +15,13 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet static
     hostname docker
-    address 192.168.1.53
+    address 192.168.2.53
     netmask 255.255.255.0
-    gateway 192.168.1.1
+    gateway 192.168.2.1
 "
 
 # Search domain of example.com, Google public nameserver
-DNSOPTS="-d xen 66.70.211.246"
+DNSOPTS="-d '' 66.70.211.246"
 
 # Set timezone to EST
 TIMEZONEOPTS="-z EST"

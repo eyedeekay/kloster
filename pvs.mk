@@ -398,3 +398,6 @@ bootdir=$(HDD_PATH)/boot/
 
 directory:
 	mkdir -p $(bootdir)
+
+mount:
+	mount $(HDD_PATH)/alpine-virt-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
