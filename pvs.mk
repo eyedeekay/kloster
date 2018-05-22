@@ -349,7 +349,7 @@ pv-installed-files: pv-darkhttpd-booted-file pv-docker-booted-file pv-registry-b
 
 define INSTALL_KERNEL
 # Kernel paths for install
-kernel = "$(HDD_PATH)/boot/boot/boot/vmlinuz-virthardened"
+kernel = "$(HDD_PATH)/boot/boot/vmlinuz-virthardened"
 ramdisk = "$(HDD_PATH)/boot/boot/initramfs-virthardened"
 extra = "modules=loop,squashfs console=hvc0"
 endef
