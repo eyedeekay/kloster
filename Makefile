@@ -369,13 +369,13 @@ autostart-docker:
 	cp /etc/xen/docker.cfg /etc/xen/auto
 
 docker-xl-create: directory mount
-	xl create /etc/xen/docker.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
+	xl create /etc/xen/docker.install.cfg -c 'MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 registry-xl-create: directory mount
-	xl create /etc/xen/registry.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
+	xl create /etc/xen/registry.install.cfg -c 'MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 darkhttpd-xl-create: directory mount
-	xl create /etc/xen/darkhttpd.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
+	xl create /etc/xen/darkhttpd.install.cfg -c 'MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 xgo-xl-create: directory mount
-	xl create /etc/xen/xgo.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
+	xl create /etc/xen/xgo.install.cfg -c 'MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
