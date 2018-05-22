@@ -87,10 +87,8 @@ docker-iso:
 		--name alpine-docker-iso \
 		-t alpine-xen-iso sh -c 'make docker-pv && sh'
 
-docker-xl-create: directory
-	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
+docker-xl-create: directory mount
 	xl create /etc/xen/docker.install.cfg -c
-	umount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/boot/
 
 docker-registry-iso:
 	docker rm -f alpine-registry-iso; \
@@ -101,7 +99,7 @@ docker-registry-iso:
 		-t alpine-xen-iso \
 		sh -c 'make docker-registry-pv && sh'
 
-registry-xl-create:
+registry-xl-create: directory mount
 	xl create /etc/xen/registry.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 darkhttpd-iso:
@@ -113,7 +111,7 @@ darkhttpd-iso:
 		-t alpine-xen-iso \
 		sh -c 'make darkhttpd-pv && sh'
 
-darkhttpd-xl-create:
+darkhttpd-xl-create: directory mount
 	xl create /etc/xen/darkhttpd.install.cfg -c 'export MKFS_OPTS_BOOT="-O ^64bit"; setup-alpine'
 
 define DOCKER_PV_FILE
@@ -275,7 +273,7 @@ xgo-iso:
 		-t alpine-xen-iso \
 		sh -c 'make xgo-pv && sh'
 
-xgo-xl-create:
+xgo-xl-create: directory mount
 	xl create /etc/xen/xgo.install.cfg -c
 
 pv-xgo-config:
