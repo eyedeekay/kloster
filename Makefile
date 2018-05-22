@@ -357,6 +357,7 @@ wget:
 	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-registry-v3.7-x86_64.iso; true
 	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-docker-v3.7-x86_64.iso; true
 	wget -c https://github.com/eyedeekay/kloster/releases/download/201801/alpine-darkhttpd-v3.7-x86_64.iso; true
+	wget -c http://dl-cdn.alpinelinux.org/alpine/v3.7/releases/x86_64/alpine-virt-3.7.0-x86_64.iso;true
 
 install: wget pv-files
 	cp darkhttpd/*.cfg /etc/xen
