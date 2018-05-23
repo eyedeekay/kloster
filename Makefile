@@ -373,12 +373,16 @@ autostart-docker:
 
 docker-xl-create: directory docker-mount
 	xl create /etc/xen/docker.install.cfg -c # 'setup-alpine'
+	umount -f /media/disk/boot
 
 registry-xl-create: directory mount registry-mount
 	xl create /etc/xen/registry.install.cfg -c # 'setup-alpine'
+	umount -f /media/disk/boot
 
-darkhttpd-xl-create: directory mount
+darkhttpd-xl-create: directory darkhttpd-mount
 	xl create /etc/xen/darkhttpd.install.cfg -c # 'setup-alpine'
+	umount -f /media/disk/boot
 
-xgo-xl-create: directory mount
+xgo-xl-create: directory xgo-mount
 	xl create /etc/xen/xgo.install.cfg -c # 'setup-alpine'
+	umount -f /media/disk/boot
