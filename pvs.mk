@@ -387,3 +387,6 @@ directory:
 
 mount:
 	mount $(HDD_PATH)/alpine-virt-3.7.0-x86_64.iso $(HDD_PATH)/boot/; true
+
+docker-mount:
+	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
