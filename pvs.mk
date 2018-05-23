@@ -134,8 +134,8 @@ timeout 5
 
 title alpine-docker-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virthardened
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export DOCKER_GRUB
@@ -184,8 +184,8 @@ timeout 5
 
 title alpine-registry-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virthardened
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export REGISTRY_GRUB
@@ -234,8 +234,8 @@ timeout 5
 
 title alpine-darkhttpd-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virthardened
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export DARKHTTPD_GRUB
@@ -320,8 +320,8 @@ timeout 5
 
 title alpine-xgo-pv
 	root (hd0,0)
-	kernel /boot/vmlinuz-virthardened modules=ext4 console=hvc0 root=/dev/xvda3
-	initrd /boot/initramfs-virthardened
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
 endef
 
 export XGO_GRUB
@@ -349,8 +349,8 @@ pv-installed-files: pv-darkhttpd-booted-file pv-docker-booted-file pv-registry-b
 
 define INSTALL_KERNEL
 # Kernel paths for install
-kernel = "$(HDD_PATH)/boot/boot/vmlinuz-virthardened"
-ramdisk = "$(HDD_PATH)/boot/boot/initramfs-virthardened"
+kernel = "$(HDD_PATH)/boot/boot/vmlinuz-hardened"
+ramdisk = "$(HDD_PATH)/boot/boot/initramfs-hardened"
 extra = "modules=loop,squashfs console=hvc0"
 endef
 
