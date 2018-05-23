@@ -371,10 +371,10 @@ copy-disks:
 autostart-docker:
 	cp /etc/xen/docker.cfg /etc/xen/auto
 
-docker-xl-create: directory mount
+docker-xl-create: directory docker-mount
 	xl create /etc/xen/docker.install.cfg -c # 'setup-alpine'
 
-registry-xl-create: directory mount
+registry-xl-create: directory mount registry-mount
 	xl create /etc/xen/registry.install.cfg -c # 'setup-alpine'
 
 darkhttpd-xl-create: directory mount

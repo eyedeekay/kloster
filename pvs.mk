@@ -388,5 +388,14 @@ directory:
 mount:
 	mount $(HDD_PATH)/alpine-virt-3.7.0-x86_64.iso $(HDD_PATH)/boot/; true
 
+darkhttpd-mount:
+	mount $(HDD_PATH)/alpine-darkhttpd-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
+
 docker-mount:
 	mount $(HDD_PATH)/alpine-docker-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
+
+registry-mount:
+	mount $(HDD_PATH)/alpine-registry-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
+
+xgo-mount:
+	mount $(HDD_PATH)/alpine-xgo-$(branch)-x86_64.iso $(HDD_PATH)/boot/; true
