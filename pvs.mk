@@ -140,6 +140,9 @@ endef
 
 export DOCKER_GRUB
 
+grub-docker-file:
+	@echo "$$DOCKER_GRUB" | tee docker/grub.menu.lst
+
 pv-docker-file:
 	@echo "$$DOCKER_PV_FILE" | tee docker/docker.install.cfg
 
@@ -191,6 +194,9 @@ endef
 
 export REGISTRY_GRUB
 
+grub-registry-file:
+	@echo "$$REGISTRY_GRUB" | tee registry/grub.menu.lst
+
 pv-registry-file:
 	@echo "$$REGISTRY_PV_FILE" | tee registry/registry.install.cfg
 
@@ -241,6 +247,9 @@ title alpine-darkhttpd-pv
 endef
 
 export DARKHTTPD_GRUB
+
+grub-darkhttpd-file:
+	@echo "$$DARKHTTPD_GRUB" | tee darkhttpd/grub.menu.lst
 
 pv-darkhttpd-file:
 	@echo "$$DARKHTTPD_PV_FILE" | tee darkhttpd/darkhttpd.install.cfg
@@ -328,6 +337,9 @@ title alpine-xgo-pv
 endef
 
 export XGO_GRUB
+
+grub-registry-file:
+	@echo "$$XGO_GRUB" | tee x2go/grub.menu.lst
 
 pv-xgo-file:
 	@echo "$$XGO_PV_FILE" | tee x2go/xgo.install.cfg

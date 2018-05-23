@@ -1,7 +1,3 @@
-Answer file AnswerFile has been created.  Please add or remove options as desired in that file
-# Example answer file for setup-alpine script
-# If you don't want to use a certain option, then comment it out
-
 # Use US layout with US variant
 KEYMAPOPTS="us us"
 
@@ -11,7 +7,6 @@ HOSTNAMEOPTS="-n xgo"
 # Contents of /etc/network/interfaces
 INTERFACESOPTS="auto lo
 iface lo inet loopback
-
 auto eth0
 iface eth0 inet static
     hostname xgo
@@ -27,10 +22,10 @@ DNSOPTS="-d xen 66.70.211.246"
 TIMEZONEOPTS="-z UTC"
 
 # set http/ftp proxy
-PROXYOPTS="http://webproxy:8080"
+PROXYOPTS="none"
 
 # Add a random mirror
-APKREPOSOPTS="-r"
+APKREPOSOPTS="-f"
 
 # Install Openssh
 SSHDOPTS="-c openssh"
@@ -39,9 +34,6 @@ SSHDOPTS="-c openssh"
 NTPOPTS="-c openntpd"
 
 # Use xvda as a sys disk
-DISKOPTS="-m sys xvda"
+DISKOPTS="-m sys /dev/xvda"
 
-# Setup in /media/sdb1
-LBUOPTS=""
-APKCACHEOPTS=""
 

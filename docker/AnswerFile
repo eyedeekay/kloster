@@ -39,7 +39,7 @@ SSHDOPTS="-c openssh"
 NTPOPTS="-c openntpd"
 
 # Use xvda as a sys disk
-DISKOPTS="-m sys xvda"
+DISKOPTS="-m sys /dev/xvda"
 
 # Setup in /media/sdb1
 LBUOPTS=""

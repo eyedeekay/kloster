@@ -30,7 +30,7 @@ TIMEZONEOPTS="-z UTC"
 PROXYOPTS="http://webproxy:8080"
 
 # Add a random mirror
-APKREPOSOPTS="-r"
+APKREPOSOPTS="-f"
 
 # Install Openssh
 SSHDOPTS="-c openssh"
@@ -39,7 +39,7 @@ SSHDOPTS="-c openssh"
 NTPOPTS="-c openntpd"
 
 # Use xvda as a sys disk
-DISKOPTS="-m sys xvda"
+DISKOPTS="-m sys /dev/xvda"
 
 # Setup in /media/sdb1
 LBUOPTS=""

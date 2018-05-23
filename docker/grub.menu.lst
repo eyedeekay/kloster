@@ -1,0 +1,7 @@
+default 0
+timeout 5
+
+title alpine-docker-pv
+	root (hd0,0)
+	kernel /boot/vmlinuz-hardened modules=ext4 console=hvc0 root=/dev/xvda3
+	initrd /boot/initramfs-hardened
