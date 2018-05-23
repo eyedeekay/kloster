@@ -38,8 +38,8 @@ SSHDOPTS="-c openssh"
 # Use openntpd
 NTPOPTS="-c openntpd"
 
-# Use /dev/sda as a data disk
-DISKOPTS="-m data /dev/xvda"
+# Use xvda as a sys disk
+DISKOPTS="-m sys xvda"
 
 # Setup in /media/sdb1
 LBUOPTS=""
